@@ -66,7 +66,7 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 const form       = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
 
   const name    = form.name.value.trim();
@@ -84,9 +84,28 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  // TODO: replace with EmailJS / backend endpoint
-  setStatus("Thanks for reaching out — we'll be in touch soon!", 'success');
-  form.reset();
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  setStatus('Sending…', '');
+
+  try {
+    const res = await fetch('/contact', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, email, phone, message }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      setStatus("Thanks! We'll be in touch soon.", 'success');
+      form.reset();
+    } else {
+      setStatus(data.error || 'Something went wrong. Please try again.', 'error');
+    }
+  } catch {
+    setStatus('Could not send message. Please try again.', 'error');
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
 
 function setStatus(msg, type) {
