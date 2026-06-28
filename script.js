@@ -1,0 +1,95 @@
+// Navbar: frosted glass on scroll
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 24);
+}, { passive: true });
+
+// Mobile nav toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks  = document.querySelector('.nav-links');
+
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Smooth scroll with navbar-height offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const id = anchor.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    const offset = navbar.offsetHeight;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+
+// Active nav link on scroll
+const sections    = document.querySelectorAll('section[id]');
+const anchorLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + navbar.offsetHeight + 80;
+  sections.forEach(sec => {
+    if (y >= sec.offsetTop && y < sec.offsetTop + sec.offsetHeight) {
+      anchorLinks.forEach(a => a.classList.remove('active'));
+      const match = document.querySelector(`.nav-links a[href="#${sec.id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { passive: true });
+
+// Scroll-triggered fade-in animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+// Contact form
+const form       = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const name    = form.name.value.trim();
+  const email   = form.email.value.trim();
+  const phone   = form.phone.value.trim();
+  const message = form.message.value.trim();
+
+  if (!name || !email || !phone || !message) {
+    setStatus('Please fill in all fields.', 'error');
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setStatus('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  // TODO: replace with EmailJS / backend endpoint
+  setStatus("Thanks for reaching out — we'll be in touch soon!", 'success');
+  form.reset();
+});
+
+function setStatus(msg, type) {
+  formStatus.textContent = msg;
+  formStatus.className   = 'form-status ' + type;
+}

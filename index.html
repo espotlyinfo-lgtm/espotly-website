@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eSpotly – Find & List Parking Spots</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="navbar-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="navbar-logo" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="videos/WebsiteVideo.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-animate="fade-up">
+      <p class="eyebrow hero-eyebrow">eSpotly</p>
+      <h1>Spot it. Book it.<br>Park&nbsp;it.</h1>
+      <p class="hero-sub">
+        The marketplace that connects drivers to available spots —<br>
+        and turns idle driveways into passive income.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get Early Access</a>
+        <a href="#how-it-works" class="btn btn-ghost">
+          See How It Works
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <p class="eyebrow" data-animate="fade-up">Simple by design</p>
+      <h2 class="section-title" data-animate="fade-up">How it works</h2>
+      <div class="steps">
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">01</span>
+          <h3>Find a spot</h3>
+          <p>Search by location and time. Real-time availability, photos, and transparent pricing — all before you leave home.</p>
+        </div>
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">02</span>
+          <h3>Book &amp; pay instantly</h3>
+          <p>Reserve in seconds with no hidden fees. Your spot is confirmed immediately — no calling ahead, no guesswork.</p>
+        </div>
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">03</span>
+          <h3>Park with confidence</h3>
+          <p>Arrive, park, and go. Your spot is guaranteed. Directions and access instructions are right in the app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Preview -->
+  <section class="section section-surface app-preview" id="app-preview">
+    <div class="container app-preview-inner">
+      <div class="app-preview-text" data-animate="fade-up">
+        <p class="eyebrow">See it in action</p>
+        <h2>The app,<br>built for you.</h2>
+        <p>From finding a spot to booking in seconds — eSpotly is designed to be simple, fast, and beautiful on any device.</p>
+        <a href="#contact" class="btn btn-primary">Get Early Access</a>
+      </div>
+      <div class="phone-mockup" data-animate="fade-up">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <video class="phone-video" autoplay muted loop playsinline>
+            <source src="videos/Welcome.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits: Drivers & Owners -->
+  <section class="section" id="benefits">
+    <div class="container">
+      <p class="eyebrow" data-animate="fade-up">Built for everyone</p>
+      <h2 class="section-title" data-animate="fade-up">Your city, your way</h2>
+      <div class="split">
+        <div class="split-card" data-animate="fade-up">
+          <div class="split-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 29l3.5-11h23L39 29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="7" y="29" width="34" height="11" rx="3" stroke="currentColor" stroke-width="2"/>
+              <circle cx="15" cy="40" r="3" fill="currentColor"/>
+              <circle cx="33" cy="40" r="3" fill="currentColor"/>
+              <path d="M7 33h34" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>For Drivers</h3>
+          <ul class="check-list">
+            <li>Guaranteed spots near your destination</li>
+            <li>Book ahead or on-the-go, in seconds</li>
+            <li>Skip the circling — save time and fuel</li>
+            <li>Secure, transparent payments</li>
+          </ul>
+        </div>
+        <div class="split-card" data-animate="fade-up">
+          <div class="split-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 24L24 8l18 16" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 22v18h28V22" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="19" y="31" width="10" height="9" rx="1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>For Space Owners</h3>
+          <ul class="check-list">
+            <li>Earn passive income from your driveway or lot</li>
+            <li>Set your own schedule and pricing</li>
+            <li>Fast, reliable payouts directly to you</li>
+            <li>Zero upfront cost to list your space</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section cta-band" id="cta">
+    <div class="container cta-inner" data-animate="fade-up">
+      <h2>Ready to change how you park?</h2>
+      <p>Join the waitlist and be first to experience eSpotly when we launch.</p>
+      <a href="#contact" class="btn btn-primary btn-lg">Get Early Access</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="container" style="max-width:660px">
+      <p class="eyebrow" data-animate="fade-up">Get in touch</p>
+      <h2 class="section-title" data-animate="fade-up">Contact us</h2>
+      <p class="section-sub" data-animate="fade-up">
+        Questions? Want early access? We'd love to hear from you.
+      </p>
+      <form class="contact-form" id="contactForm" novalidate data-animate="fade-up">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="phone">Mobile Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+63 912 345 6789" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us how we can help…" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <p class="form-status" id="formStatus" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="footer-logo" />
+        <p>Find a spot. Earn from yours.</p>
+        <p class="footer-location">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 1a3.5 3.5 0 0 1 3.5 3.5C9.5 7.5 6 11 6 11S2.5 7.5 2.5 4.5A3.5 3.5 0 0 1 6 1z" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="6" cy="4.5" r="1.2" fill="currentColor"/>
+          </svg>
+          Pasig City, Philippines
+        </p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#contact">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </nav>
+      <div class="footer-emails">
+        <a href="mailto:support@espotly.com" class="footer-email-item">
+          <span class="footer-email-label">Support</span>
+          <span class="footer-email-addr">support@espotly.com</span>
+        </a>
+        <a href="mailto:partnerships@espotly.com" class="footer-email-item">
+          <span class="footer-email-label">Partnerships &amp; Sponsors</span>
+          <span class="footer-email-addr">partnerships@espotly.com</span>
+        </a>
+        <a href="mailto:investors@espotly.com" class="footer-email-item">
+          <span class="footer-email-label">Investors</span>
+          <span class="footer-email-addr">investors@espotly.com</span>
+        </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 eSpotly. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
