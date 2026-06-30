@@ -30,17 +30,48 @@ const MIME = {
   '.webp': 'image/webp',
 };
 
-function serveStatic(res, filePath) {
+function serveStatic(req, res, filePath) {
   const ext  = path.extname(filePath).toLowerCase();
   const mime = MIME[ext] || 'application/octet-stream';
-  fs.readFile(filePath, (err, data) => {
+
+  fs.stat(filePath, (err, stat) => {
     if (err) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not found');
       return;
     }
-    res.writeHead(200, { 'Content-Type': mime });
-    res.end(data);
+
+    const total = stat.size;
+    const range = req.headers['range'];
+
+    if (range) {
+      // Parse "bytes=start-end"
+      const match = range.match(/bytes=(\d*)-(\d*)/);
+      const start = match[1] ? parseInt(match[1], 10) : 0;
+      const end   = match[2] ? parseInt(match[2], 10) : total - 1;
+
+      if (start > end || start >= total) {
+        res.writeHead(416, { 'Content-Range': `bytes */${total}` });
+        res.end();
+        return;
+      }
+
+      const chunkSize = end - start + 1;
+      res.writeHead(206, {
+        'Content-Type':   mime,
+        'Content-Range':  `bytes ${start}-${end}/${total}`,
+        'Accept-Ranges':  'bytes',
+        'Content-Length': chunkSize,
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Content-Type':   mime,
+        'Accept-Ranges':  'bytes',
+        'Content-Length': total,
+      });
+      fs.createReadStream(filePath).pipe(res);
+    }
   });
 }
 
@@ -121,7 +152,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  serveStatic(res, filePath);
+  serveStatic(req, res, filePath);
 });
 
 server.listen(PORT, () => console.log(`eSpotly server running on port ${PORT}`));
