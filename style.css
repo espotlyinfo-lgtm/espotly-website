@@ -1315,6 +1315,59 @@ ul   { list-style: none; }
   background: var(--teal-dim);
 }
 
+/* ── App download badges ─────────────────── */
+.download-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.download-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.9rem 1.6rem;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  min-width: 170px;
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.download-badge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.download-badge-sub {
+  font-size: 0.7rem;
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+.download-badge-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.download-note {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-3);
+  margin-top: 1.25rem;
+}
+
+.download-note a { color: var(--teal); transition: opacity 0.2s; }
+.download-note a:hover { opacity: 0.75; }
+
 /* ── Testimonials ────────────────────────── */
 .testimonials-grid {
   display: grid;
