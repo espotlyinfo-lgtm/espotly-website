@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ – eSpotly</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="navbar-logo" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+        <li><a href="faq.html" class="active">FAQ</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="legal-header">
+    <span class="legal-badge">Support</span>
+    <h1>Frequently Asked Questions</h1>
+    <p class="legal-meta">Everything you need to know about using eSpotly</p>
+  </header>
+
+  <!-- FAQ Content -->
+  <div class="faq-page">
+
+    <!-- Tab Switcher -->
+    <div class="faq-tabs" role="tablist">
+      <button class="faq-tab active" role="tab" aria-selected="true" data-tab="driver">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        Driver
+      </button>
+      <button class="faq-tab" role="tab" aria-selected="false" data-tab="owner">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <rect x="2" y="8" width="12" height="7" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M5 8V5.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        Owner
+      </button>
+    </div>
+
+    <!-- Driver FAQ -->
+    <div class="faq-panel active" id="tab-driver">
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">How to Use the App</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I book a parking space?</summary>
+          <div class="faq-a">
+            <div class="faq-steps">
+              <span>Browse spaces</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Select space</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Tap "Book Now"</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Pay via GCash / GrabPay / Maya / Card</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Wait for owner approval</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Get access details</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can I cancel a booking?</summary>
+          <div class="faq-a">
+            <p>Yes. Check the cancellation policy before booking. Tap <strong>"Cancel Booking"</strong> in the app. Refunds follow the policy set at booking time.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I contact the owner?</summary>
+          <div class="faq-a">
+            <p>Use in-app messaging on your booking screen.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What if the owner doesn't give me access?</summary>
+          <div class="faq-a">
+            <p>Message the owner first through in-app messaging. If there's no response, contact <a href="mailto:support@espotly.com">support@espotly.com</a> with your booking details and we'll assist you.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Payment Questions</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can I pay the owner directly outside the app?</summary>
+          <div class="faq-a">
+            <p>No — external transactions are not covered by eSpotly protection.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is it safe to pay through the app?</summary>
+          <div class="faq-a">
+            <p>Yes — payments are processed by <strong>PayMongo</strong> with bank-level encryption. Your card details are never stored.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What payment methods are available?</summary>
+          <div class="faq-a">
+            <div class="faq-payment-methods">
+              <span>GCash</span>
+              <span>GrabPay</span>
+              <span>Maya</span>
+              <span>Credit / Debit Card</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What if payment fails?</summary>
+          <div class="faq-a">
+            <p>Your booking will be automatically cancelled after 2 hours. No charges will be made.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Safety Tips</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I stay safe when using eSpotly?</summary>
+          <div class="faq-a">
+            <ul>
+              <li>Try to arrive and inspect the space during daylight hours.</li>
+              <li>Check the owner's reviews and ratings before booking.</li>
+              <li>Take photos of the space before and after your booking as a personal record.</li>
+              <li>Report any damage or issues to <a href="mailto:support@espotly.com">support@espotly.com</a> with photos and your booking details.</li>
+              <li>Never share personal information with the owner outside the app.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is my vehicle insured while parked?</summary>
+          <div class="faq-a">
+            <p>eSpotly does not provide vehicle insurance. We recommend verifying that your own comprehensive insurance covers parked vehicles.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">How Your Data Is Protected</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">Who can see my personal information?</summary>
+          <div class="faq-a">
+            <p>Only you and the owner of a confirmed booking can see your personal info.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is my payment information secure?</summary>
+          <div class="faq-a">
+            <p>Payments are processed by <strong>PayMongo</strong> with bank-level encryption — card numbers are never stored.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How is my data stored and for how long?</summary>
+          <div class="faq-a">
+            <ul>
+              <li>Photos and ID documents are stored securely on Cloudinary.</li>
+              <li>Your data is retained while your account is active.</li>
+              <li>Location: general only — no background tracking.</li>
+              <li>Email <a href="mailto:support@espotly.com">support@espotly.com</a> to access or delete your data.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Owner FAQ -->
+    <div class="faq-panel" id="tab-owner">
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">How to Use the App</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I list my space?</summary>
+          <div class="faq-a">
+            <div class="faq-steps">
+              <span>Sign up</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Complete identity verification</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Upload photos</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Add details &amp; rates</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Submit for approval</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Start receiving bookings</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can I cancel a booking?</summary>
+          <div class="faq-a">
+            <p>Yes, with a valid reason (e.g. emergency or accessibility issue). Message the driver first, then tap <strong>"Cancel Booking"</strong> in the app.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I contact the driver?</summary>
+          <div class="faq-a">
+            <p>Use in-app messaging on your booking screen.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Payment Questions</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can drivers pay me directly outside the app?</summary>
+          <div class="faq-a">
+            <p>No — external transactions are not covered by eSpotly protection.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is it safe to receive payments through the app?</summary>
+          <div class="faq-a">
+            <p>Yes — payments are handled by <strong>PayMongo</strong> with bank-level encryption.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What payment methods do drivers use?</summary>
+          <div class="faq-a">
+            <div class="faq-payment-methods">
+              <span>GCash</span>
+              <span>GrabPay</span>
+              <span>Maya</span>
+              <span>Credit / Debit Card</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">When do I get my payout?</summary>
+          <div class="faq-a">
+            <p>Automatically at <strong>9:00 AM PHT</strong> the day after the booking end date.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What's the 15% platform fee?</summary>
+          <div class="faq-a">
+            <p>It covers payment processing, app operations, customer support, SMS verification, and server costs.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What if a driver's payment fails?</summary>
+          <div class="faq-a">
+            <p>The booking is automatically cancelled after 2 hours. Your space becomes available again immediately.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Safety Tips</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I stay safe as an owner?</summary>
+          <div class="faq-a">
+            <ul>
+              <li>Check the driver's reviews and ratings before accepting a booking.</li>
+              <li>Take photos of your space before and after each booking as a personal record.</li>
+              <li>Report any damage to <a href="mailto:support@espotly.com">support@espotly.com</a> with photos and booking details.</li>
+              <li>Never share personal information with drivers outside the app.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What if a driver doesn't show up?</summary>
+          <div class="faq-a">
+            <p>Message the driver first through in-app messaging. If there's no response, contact <a href="mailto:support@espotly.com">support@espotly.com</a> and we'll assist you.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">How Your Data Is Protected</h2>
+
+        <details class="faq-item">
+          <summary class="faq-q">Who can see my personal information?</summary>
+          <div class="faq-a">
+            <p>Only you and the driver of a confirmed booking can see your personal info.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is my payment information secure?</summary>
+          <div class="faq-a">
+            <p>Payments are processed by <strong>PayMongo</strong> with bank-level encryption — card numbers are never stored.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How is my data stored and for how long?</summary>
+          <div class="faq-a">
+            <ul>
+              <li>Photos and ID documents are stored securely on Cloudinary.</li>
+              <li>Your data is retained while your account is active.</li>
+              <li>Location: general only — no background tracking.</li>
+              <li>Email <a href="mailto:support@espotly.com">support@espotly.com</a> to access or delete your data.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Still have questions -->
+    <div class="faq-contact">
+      <p>Still have questions?</p>
+      <a href="mailto:support@espotly.com" class="btn btn-primary">Contact Support</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="footer-logo" />
+        <p>Find a spot. Earn from yours.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#contact">Contact Us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 eSpotly. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.faq-tab');
+    const panels = document.querySelectorAll('.faq-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Smooth accordion animation
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const summary = item.querySelector('summary');
+      const body = item.querySelector('.faq-a');
+
+      summary.addEventListener('click', e => {
+        e.preventDefault();
+        const isOpen = item.hasAttribute('open');
+
+        // Close all others in same group
+        item.closest('.faq-group').querySelectorAll('details[open]').forEach(other => {
+          if (other !== item) {
+            other.querySelector('.faq-a').style.maxHeight = '0';
+            other.querySelector('.faq-a').style.opacity = '0';
+            setTimeout(() => other.removeAttribute('open'), 300);
+          }
+        });
+
+        if (isOpen) {
+          body.style.maxHeight = '0';
+          body.style.opacity = '0';
+          setTimeout(() => item.removeAttribute('open'), 300);
+        } else {
+          item.setAttribute('open', '');
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.style.opacity = '1';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
