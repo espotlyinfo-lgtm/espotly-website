@@ -2116,6 +2116,44 @@ ul   { list-style: none; }
   margin-bottom: 0.75rem;
 }
 
+.about-team-card .about-founder-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.about-team-card .about-founder-role {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 980px;
+  padding: 0.25rem 0.75rem;
+  margin-top: 0.2rem;
+}
+
+/* Each role a distinct colour */
+.about-team-card:nth-child(1) .about-founder-role {
+  background: rgba(0, 191, 165, 0.12);
+  color: var(--teal);
+  border: 1px solid rgba(0, 191, 165, 0.3);
+}
+.about-team-card:nth-child(2) .about-founder-role {
+  background: rgba(99, 179, 237, 0.12);
+  color: #63b3ed;
+  border: 1px solid rgba(99, 179, 237, 0.3);
+}
+.about-team-card:nth-child(3) .about-founder-role {
+  background: rgba(246, 173, 85, 0.12);
+  color: #f6ad55;
+  border: 1px solid rgba(246, 173, 85, 0.3);
+}
+.about-team-card:nth-child(4) .about-founder-role {
+  background: rgba(252, 129, 163, 0.12);
+  color: #fc81a3;
+  border: 1px solid rgba(252, 129, 163, 0.3);
+}
+
 .about-team-bio {
   font-size: 0.84rem;
   color: var(--text-3);
