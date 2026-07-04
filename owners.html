@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List Your Space – eSpotly</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="navbar-logo" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="owners.html" class="active nav-owners">For Owners</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="owners-hero">
+    <div class="owners-hero-inner">
+      <span class="legal-badge">For Space Owners</span>
+      <h1>Your parking space<br>is earning potential<br>waiting to happen.</h1>
+      <p>Drivers in Metro Manila are searching for spots like yours every day. List on eSpotly — set your rate, accept bookings, and earn automatically.</p>
+      <a href="index.html#contact" class="btn btn-primary btn-lg">List My Space</a>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div class="owners-stats">
+    <div class="owners-stat">
+      <span class="owners-stat-value">Metro Manila</span>
+      <span class="owners-stat-label">Launch coverage</span>
+    </div>
+    <div class="owners-stat-divider"></div>
+    <div class="owners-stat">
+      <span class="owners-stat-value">85%</span>
+      <span class="owners-stat-label">You keep of every booking</span>
+    </div>
+    <div class="owners-stat-divider"></div>
+    <div class="owners-stat">
+      <span class="owners-stat-value">Next Day</span>
+      <span class="owners-stat-label">Automatic payout at 9AM</span>
+    </div>
+    <div class="owners-stat-divider"></div>
+    <div class="owners-stat">
+      <span class="owners-stat-value">Free</span>
+      <span class="owners-stat-label">No cost to list your space</span>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <p class="eyebrow" data-animate="fade-up">Simple to start</p>
+      <h2 class="section-title" data-animate="fade-up">Three steps to earning</h2>
+      <div class="steps">
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">01</span>
+          <h3>List your space</h3>
+          <p>Sign up, complete a one-time identity verification, then add your space — photos, rates, and availability. Takes less than 15 minutes.</p>
+        </div>
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">02</span>
+          <h3>Accept bookings</h3>
+          <p>Drivers send booking requests. You review and accept only the ones that work for you. Message drivers directly through the app.</p>
+        </div>
+        <div class="step" data-animate="fade-up">
+          <span class="step-num">03</span>
+          <h3>Get paid automatically</h3>
+          <p>Your payout is processed automatically at 9:00 AM PHT the day after each booking ends. No chasing payments, ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Earnings Calculator -->
+  <section class="section section-surface" id="earnings">
+    <div class="container">
+      <p class="eyebrow" data-animate="fade-up">Transparent earnings</p>
+      <h2 class="section-title" data-animate="fade-up">See what you could earn</h2>
+      <p class="section-sub" data-animate="fade-up">Enter your rate and estimate your monthly income. No surprises — just clear numbers.</p>
+
+      <div class="calc-wrapper" data-animate="fade-up">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="ownerRate">Your daily rate</label>
+            <div class="calc-input-wrap">
+              <span class="calc-prefix">₱</span>
+              <input type="number" id="ownerRate" min="1" placeholder="300" />
+              <span class="calc-suffix">/ day</span>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="ownerDays">Days booked per month</label>
+            <div class="calc-input-wrap">
+              <input type="number" id="ownerDays" min="1" max="31" placeholder="20" />
+              <span class="calc-suffix">days</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-result">
+          <div class="calc-row">
+            <span class="calc-row-label">Total paid by drivers</span>
+            <span class="calc-row-value" id="calcTotal">₱6,000.00</span>
+          </div>
+          <div class="calc-row calc-row-fee">
+            <span class="calc-row-label">eSpotly platform fee <span class="calc-fee-pct">(15%)</span></span>
+            <span class="calc-row-value calc-fee-val" id="calcFee">− ₱900.00</span>
+          </div>
+          <div class="calc-row calc-row-payout">
+            <span class="calc-row-label">Your monthly payout</span>
+            <span class="calc-row-value calc-payout-val" id="calcPayout">₱5,100.00</span>
+          </div>
+          <p class="calc-note">The 15% fee covers PayMongo payment processing, app operations, customer support, SMS verification, and server costs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why eSpotly -->
+  <section class="section" id="why">
+    <div class="container">
+      <p class="eyebrow" data-animate="fade-up">Built with owners in mind</p>
+      <h2 class="section-title" data-animate="fade-up">Why owners choose eSpotly</h2>
+      <div class="owners-why-grid">
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M11 2l1.8 5.5H19l-4.6 3.4 1.8 5.5L11 13l-5.2 3.4 1.8-5.5L3 7.5h6.2L11 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>You're in control</h3>
+          <p>Set your own rates, block dates you don't want bookings, and accept only the requests that work for you.</p>
+        </div>
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M3 20c0-4.418 3.582-7 8-7s8 2.582 8 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M15 4l1.5 1.5L19 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Verified drivers only</h3>
+          <p>Every driver on eSpotly has a verified account with reviews. Check ratings before you accept a booking.</p>
+        </div>
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <rect x="2" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M6 6V5a5 5 0 0 1 10 0v1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="11" cy="12" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Secure payments</h3>
+          <p>All payments go through PayMongo — bank-level encryption, no cash handling, no risk of non-payment.</p>
+        </div>
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M11 6v5l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Automatic payouts</h3>
+          <p>Earnings hit your account at 9:00 AM PHT the day after a booking ends. No requests, no delays.</p>
+        </div>
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M11 2C6.03 2 2 6.03 2 11s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Free to list</h3>
+          <p>No upfront fees. No monthly subscription. You only pay the platform fee when you earn — and it comes out automatically.</p>
+        </div>
+        <div class="owners-why-card" data-animate="fade-up">
+          <div class="owners-why-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-5 5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Support when you need it</h3>
+          <p>Questions about a booking or a driver? Our support team is reachable at support@espotly.com, always.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requirements -->
+  <section class="section section-surface" id="requirements">
+    <div class="container" style="max-width:700px">
+      <p class="eyebrow" data-animate="fade-up">What you need</p>
+      <h2 class="section-title" data-animate="fade-up">Requirements to list</h2>
+      <div class="owners-reqs" data-animate="fade-up">
+        <div class="owners-req">
+          <div class="owners-req-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 1a4.5 4.5 0 0 1 4.5 4.5C13.5 9.5 9 15 9 15S4.5 9.5 4.5 5.5A4.5 4.5 0 0 1 9 1z" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="9" cy="5.5" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div>
+            <p class="owners-req-title">Located in Metro Manila</p>
+            <p class="owners-req-desc">We are currently accepting listings across Metro Manila's key districts.</p>
+          </div>
+        </div>
+        <div class="owners-req">
+          <div class="owners-req-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <rect x="2" y="4" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M5 8h8M5 11h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="owners-req-title">Government-issued ID</p>
+            <p class="owners-req-desc">Required for one-time identity verification before your first booking is accepted.</p>
+          </div>
+        </div>
+        <div class="owners-req">
+          <div class="owners-req-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 2l2 6h6l-5 3.5 2 6L9 14l-5 3.5 2-6L1 8h6L9 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="owners-req-title">Safe and accessible space</p>
+            <p class="owners-req-desc">The space must be safe, usable, and legally available for parking as described in your listing.</p>
+          </div>
+        </div>
+        <div class="owners-req">
+          <div class="owners-req-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <rect x="3" y="2" width="12" height="15" rx="2" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M6 6h6M6 9h6M6 12h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="owners-req-title">Philippine mobile number</p>
+            <p class="owners-req-desc">Used for SMS OTP verification to secure your account.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="owners-cta" data-animate="fade-up">
+        <span class="legal-badge">Ready to start?</span>
+        <h2>Turn your idle space into monthly income.</h2>
+        <p>Listing is free. Setup takes under 15 minutes. Your first booking could come sooner than you think.</p>
+        <div class="owners-cta-actions">
+          <a href="index.html#contact" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="faq.html" class="btn btn-ghost btn-lg">Owner FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="footer-logo" />
+        <p>Find a spot. Earn from yours.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="owners.html">For Owners</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="index.html#contact">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </nav>
+      <div class="footer-social">
+        <!-- Update hrefs with real social media URLs when ready -->
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.01a8.16 8.16 0 0 0 4.77 1.52V7.08a4.85 4.85 0 0 1-1-.39z"/>
+          </svg>
+        </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 eSpotly. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Earnings calculator
+    const rateInput  = document.getElementById('ownerRate');
+    const daysInput  = document.getElementById('ownerDays');
+    const totalEl    = document.getElementById('calcTotal');
+    const feeEl      = document.getElementById('calcFee');
+    const payoutEl   = document.getElementById('calcPayout');
+
+    function fmt(n) {
+      return '₱' + n.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function updateCalc() {
+      const rate  = parseFloat(rateInput.value)  || 300;
+      const days  = parseFloat(daysInput.value)  || 20;
+      const total = rate * days;
+      const fee   = total * 0.15;
+      const payout = total * 0.85;
+      totalEl.textContent  = fmt(total);
+      feeEl.textContent    = '− ' + fmt(fee);
+      payoutEl.textContent = fmt(payout);
+    }
+
+    rateInput.addEventListener('input', updateCalc);
+    daysInput.addEventListener('input', updateCalc);
+    updateCalc();
+  </script>
+</body>
+</html>

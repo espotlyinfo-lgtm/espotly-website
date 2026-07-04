@@ -1,3 +1,30 @@
+// Cookie consent banner
+(function() {
+  if (localStorage.getItem('espotly_cookie')) return;
+  const banner = document.createElement('div');
+  banner.className = 'cookie-banner';
+  banner.innerHTML =
+    '<p class="cookie-text">We use cookies to improve your experience. By continuing to use eSpotly, you agree to our <a href="/privacy.html">Privacy Policy</a>.</p>' +
+    '<div class="cookie-actions">' +
+      '<button class="btn btn-ghost cookie-decline">Decline</button>' +
+      '<button class="btn btn-primary cookie-accept">Accept</button>' +
+    '</div>';
+  document.body.appendChild(banner);
+  setTimeout(() => banner.classList.add('visible'), 600);
+  banner.querySelector('.cookie-accept').addEventListener('click', () => {
+    localStorage.setItem('espotly_cookie', 'accepted');
+    banner.classList.remove('visible');
+    banner.classList.add('hidden');
+    setTimeout(() => banner.remove(), 400);
+  });
+  banner.querySelector('.cookie-decline').addEventListener('click', () => {
+    localStorage.setItem('espotly_cookie', 'declined');
+    banner.classList.remove('visible');
+    banner.classList.add('hidden');
+    setTimeout(() => banner.remove(), 400);
+  });
+})();
+
 // Navbar: frosted glass on scroll
 const navbar = document.getElementById('navbar');
 
