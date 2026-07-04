@@ -2010,6 +2010,80 @@ ul   { list-style: none; }
   max-width: none;
 }
 
+/* Featured founder row */
+.about-team-founder {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  background: var(--surface);
+  border: 1px solid rgba(0, 191, 165, 0.25);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-team-founder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(0, 191, 165, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-founder-avatar-lg {
+  width: 72px !important;
+  height: 72px !important;
+  flex-shrink: 0;
+}
+
+.about-team-founder-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-team-founder-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.about-team-founder-header .about-founder-name {
+  font-size: 1.15rem;
+}
+
+.about-team-founder-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-dim);
+  border: 1px solid rgba(0, 191, 165, 0.25);
+  border-radius: 980px;
+  padding: 0.25rem 0.75rem;
+}
+
+.about-team-founder .about-team-bio {
+  font-size: 0.92rem;
+  color: var(--text-2);
+  max-width: 520px;
+}
+
+@media (max-width: 600px) {
+  .about-team-founder {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 1.75rem 1.5rem;
+  }
+  .about-team-founder-header { justify-content: center; }
+}
+
 /* Team grid */
 .about-team-grid {
   display: grid;
