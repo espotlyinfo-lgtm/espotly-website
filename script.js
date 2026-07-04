@@ -66,49 +66,52 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 const form       = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
-form.addEventListener('submit', async e => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
 
-  const name    = form.name.value.trim();
-  const email   = form.email.value.trim();
-  const phone   = form.phone.value.trim();
-  const message = form.message.value.trim();
+    const name    = form.name.value.trim();
+    const email   = form.email.value.trim();
+    const phone   = form.phone.value.trim();
+    const message = form.message.value.trim();
 
-  if (!name || !email || !phone || !message) {
-    setStatus('Please fill in all fields.', 'error');
-    return;
-  }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    setStatus('Please enter a valid email address.', 'error');
-    return;
-  }
-
-  const submitBtn = form.querySelector('button[type="submit"]');
-  submitBtn.disabled = true;
-  setStatus('Sending…', '');
-
-  try {
-    const res = await fetch('/contact', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ name, email, phone, message }),
-    });
-    const data = await res.json();
-    if (data.ok) {
-      setStatus("Thanks! We'll be in touch soon.", 'success');
-      form.reset();
-    } else {
-      setStatus(data.error || 'Something went wrong. Please try again.', 'error');
+    if (!name || !email || !phone || !message) {
+      setStatus('Please fill in all fields.', 'error');
+      return;
     }
-  } catch {
-    setStatus('Could not send message. Please try again.', 'error');
-  } finally {
-    submitBtn.disabled = false;
-  }
-});
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    setStatus('Sending…', '');
+
+    try {
+      const res = await fetch('/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ name, email, phone, message }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setStatus("Thanks! We'll be in touch soon.", 'success');
+        form.reset();
+      } else {
+        setStatus(data.error || 'Something went wrong. Please try again.', 'error');
+      }
+    } catch {
+      setStatus('Could not send message. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
 
 function setStatus(msg, type) {
+  if (!formStatus) return;
   formStatus.textContent = msg;
   formStatus.className   = 'form-status ' + type;
 }
