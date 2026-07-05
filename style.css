@@ -227,7 +227,7 @@ ul   { list-style: none; }
 .anim-parking-spot {
   position: absolute;
   right: 9rem;
-  top: calc(50% + 3.75rem);
+  top: calc(50% + 6rem);
   transform: translateY(-50%);
   width: 96px;
   height: 160px;
@@ -237,6 +237,8 @@ ul   { list-style: none; }
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 0.7rem;
+  /* wheel stop line at top */
+  border-top: 6px solid rgba(255,255,255,0.75);
 }
 
 .anim-parking-spot::before,
