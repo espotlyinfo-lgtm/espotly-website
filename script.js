@@ -92,17 +92,27 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 // Cross-section car scroll animation (How It Works → Your city, your way)
 const heroCar = document.getElementById('heroCar');
 if (heroCar) {
-  const startSection = document.getElementById('how-it-works');
-  const endSection   = document.getElementById('benefits');
+  const startSection  = document.getElementById('how-it-works');
+  const endSection    = document.getElementById('benefits');
+  const parkingSpot   = document.querySelector('.anim-parking-spot');
   let raf = false;
 
   function updateCar() {
-    const startTop = startSection.getBoundingClientRect().top + window.scrollY;
-    const endBottom = endSection.getBoundingClientRect().top + window.scrollY + endSection.offsetHeight;
+    const vh = window.innerHeight;
+    const scrollY = window.scrollY;
 
-    const scrollY   = window.scrollY;
-    const enterAt   = startTop - window.innerHeight * 0.6;
-    const exitAt    = endBottom - window.innerHeight * 0.2;
+    // Absolute page positions
+    const startPageTop  = startSection.offsetTop;
+    const spotPageTop   = endSection.offsetTop + parkingSpot.offsetTop;
+    const spotPageBot   = spotPageTop + parkingSpot.offsetHeight;
+    const carH          = heroCar.offsetHeight;
+
+    // Car appears when how-it-works reaches mid-viewport
+    const enterAt = startPageTop - vh * 0.55;
+    // Car is fully parked when its bottom aligns with the spot's bottom
+    const parkedScrollY = spotPageBot - vh * 0.72;
+    // Fade out when spot scrolls above viewport
+    const exitAt = spotPageTop - vh * 0.05;
 
     if (scrollY < enterAt || scrollY > exitAt) {
       heroCar.style.opacity = '0';
@@ -110,14 +120,15 @@ if (heroCar) {
       return;
     }
 
-    const progress = (scrollY - enterAt) / (exitAt - enterAt);
-    const eased    = progress < 0.5
-      ? 2 * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+    const progress = Math.min(Math.max((scrollY - enterAt) / (parkedScrollY - enterAt), 0), 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
 
-    const topBound    = window.innerHeight * 0.08;
-    const bottomBound = window.innerHeight * 0.78;
-    const y = topBound + (bottomBound - topBound) * eased;
+    // Parked position: car bottom = spot bottom (in viewport coords)
+    const spotBotInViewport = spotPageBot - scrollY;
+    const parkedTop = spotBotInViewport - carH;
+    const startTop = vh * 0.08;
+
+    const y = startTop + (parkedTop - startTop) * eased;
 
     heroCar.style.opacity = '1';
     heroCar.style.top = y + 'px';
