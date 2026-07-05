@@ -210,14 +210,14 @@ ul   { list-style: none; }
 /* ── Car parking animation ───────────────────── */
 #heroCar {
   position: fixed;
-  right: 2%;
-  width: 108px;
-  top: 80px;
+  right: max(1.5rem, calc((100vw - 1080px) / 2));
+  width: 110px;
   opacity: 0;
   pointer-events: none;
   z-index: 50;
   transform: rotate(180deg);
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.45));
+  will-change: top, opacity;
 }
 
 #benefits {
@@ -226,45 +226,36 @@ ul   { list-style: none; }
 
 .anim-parking-spot {
   position: absolute;
-  right: 2%;
-  bottom: 4rem;
-  width: 124px;
-  height: 185px;
+  right: max(1.5rem, calc((100vw - 1080px) / 2));
+  bottom: 3rem;
+  width: 130px;
+  height: 190px;
   background: #161616;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 0.8rem;
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+  padding-bottom: 0.9rem;
 }
 
-/* Left white line */
-.anim-parking-spot::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 5px;
-  background: #fff;
-  opacity: 0.8;
-}
-
-/* Right white line */
+.anim-parking-spot::before,
 .anim-parking-spot::after {
   content: '';
   position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 5px;
+  top: 0; bottom: 0;
+  width: 6px;
   background: #fff;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
+.anim-parking-spot::before { left: 0; }
+.anim-parking-spot::after  { right: 0; }
+
 .anim-parking-p {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 900;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.15);
   font-style: italic;
-  letter-spacing: 0.05em;
 }
 
 @media (max-width: 900px) {

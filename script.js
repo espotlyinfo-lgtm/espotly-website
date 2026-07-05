@@ -89,58 +89,60 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-// Cross-section car scroll animation (How It Works → Your city, your way)
-const heroCar = document.getElementById('heroCar');
-if (heroCar) {
-  const startSection  = document.getElementById('how-it-works');
-  const endSection    = document.getElementById('benefits');
-  const parkingSpot   = document.querySelector('.anim-parking-spot');
+// Car scroll animation: How It Works → Benefits parking spot
+(function () {
+  const car   = document.getElementById('heroCar');
+  const spot  = document.querySelector('.anim-parking-spot');
+  const start = document.getElementById('how-it-works');
+  if (!car || !spot || !start) return;
+
   let raf = false;
 
-  function updateCar() {
-    const vh = window.innerHeight;
-    const scrollY = window.scrollY;
+  function pageTop(el) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
 
-    // Absolute page positions
-    const startPageTop  = startSection.offsetTop;
-    const spotPageTop   = endSection.offsetTop + parkingSpot.offsetTop;
-    const spotPageBot   = spotPageTop + parkingSpot.offsetHeight;
-    const carH          = heroCar.offsetHeight;
+  function update() {
+    const vh  = window.innerHeight;
+    const sy  = window.scrollY;
 
-    // Car appears when how-it-works reaches mid-viewport
-    const enterAt = startPageTop - vh * 0.55;
-    // Car is fully parked when its bottom aligns with the spot's bottom
-    const parkedScrollY = spotPageBot - vh * 0.72;
-    // Fade out when spot scrolls above viewport
-    const exitAt = spotPageTop - vh * 0.05;
+    const sectionTop = pageTop(start);
+    const spotTop    = pageTop(spot);
 
-    if (scrollY < enterAt || scrollY > exitAt) {
-      heroCar.style.opacity = '0';
+    // Car appears when How It Works reaches 70% down viewport
+    const enterAt  = sectionTop - vh * 0.7;
+    // Car is parked when spot top sits at 50% of viewport
+    const parkedAt = spotTop - vh * 0.5;
+    // Hide after spot scrolls near viewport top
+    const exitAt   = spotTop - vh * 0.15;
+
+    if (sy < enterAt || sy > exitAt) {
+      car.style.opacity = '0';
       raf = false;
       return;
     }
 
-    const progress = Math.min(Math.max((scrollY - enterAt) / (parkedScrollY - enterAt), 0), 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+    car.style.opacity = '1';
 
-    // Parked position: car bottom = spot bottom (in viewport coords)
-    const spotBotInViewport = spotPageBot - scrollY;
-    const parkedTop = spotBotInViewport - carH;
-    const startTop = vh * 0.08;
+    const progress = Math.min(Math.max((sy - enterAt) / (parkedAt - enterAt), 0), 1);
+    const eased    = 1 - Math.pow(1 - progress, 3);
 
-    const y = startTop + (parkedTop - startTop) * eased;
+    const yStart  = vh * 0.08;
+    const yParked = vh * 0.5;
+    // Once parked, track the spot so car stays inside as section scrolls up
+    const yPost   = spotTop - sy;
+    const y       = progress < 1 ? yStart + (yParked - yStart) * eased : yPost;
 
-    heroCar.style.opacity = '1';
-    heroCar.style.top = y + 'px';
+    car.style.top = Math.round(y) + 'px';
     raf = false;
   }
 
-  heroCar.style.transition = 'opacity 0.3s';
+  car.style.transition = 'opacity 0.25s';
   window.addEventListener('scroll', () => {
-    if (!raf) { raf = true; requestAnimationFrame(updateCar); }
+    if (!raf) { raf = true; requestAnimationFrame(update); }
   }, { passive: true });
-  updateCar();
-}
+  update();
+}());
 
 // Contact form
 const form       = document.getElementById('contactForm');
