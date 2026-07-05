@@ -89,6 +89,16 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
+// Car parking animation — triggers on first scroll
+const heroCar = document.getElementById('heroCar');
+if (heroCar) {
+  const parkCar = () => {
+    heroCar.classList.add('parked');
+    window.removeEventListener('scroll', parkCar);
+  };
+  window.addEventListener('scroll', parkCar, { passive: true });
+}
+
 // Contact form
 const form       = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
