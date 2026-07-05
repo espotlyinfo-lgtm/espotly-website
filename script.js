@@ -89,14 +89,28 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-// Car parking animation — triggers on first scroll
+// Car scroll-driven animation in How It Works section
 const heroCar = document.getElementById('heroCar');
 if (heroCar) {
-  const parkCar = () => {
-    heroCar.classList.add('parked');
-    window.removeEventListener('scroll', parkCar);
-  };
-  window.addEventListener('scroll', parkCar, { passive: true });
+  const section = document.getElementById('how-it-works');
+  let raf = false;
+
+  function updateCar() {
+    const rect = section.getBoundingClientRect();
+    const sectionH = section.offsetHeight;
+    // progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
+    const progress = Math.min(Math.max(-rect.top / (sectionH - window.innerHeight * 0.3), 0), 1);
+    const eased = 1 - Math.pow(1 - progress, 2);
+    const TRAVEL = section.offsetHeight * 0.72;
+    heroCar.style.transform = `translateY(${-TRAVEL + TRAVEL * eased}px)`;
+    raf = false;
+  }
+
+  heroCar.style.transition = 'none';
+  window.addEventListener('scroll', () => {
+    if (!raf) { raf = true; requestAnimationFrame(updateCar); }
+  }, { passive: true });
+  updateCar();
 }
 
 // Contact form

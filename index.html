@@ -46,37 +46,6 @@
       <source src="videos/WebsiteVideo.mp4" type="video/mp4" />
     </video>
     <div class="hero-overlay"></div>
-
-    <!-- Car parking animation -->
-    <div class="car-scene" aria-hidden="true">
-      <div class="car-road-dashes"></div>
-      <svg class="anim-car" id="heroCar" width="58" height="100" viewBox="0 0 58 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Body -->
-        <rect x="5" y="8" width="48" height="84" rx="12" fill="#00bfa5"/>
-        <!-- Cabin -->
-        <rect x="10" y="24" width="38" height="38" rx="8" fill="rgba(0,0,0,0.3)"/>
-        <!-- Front windshield -->
-        <rect x="12" y="26" width="34" height="15" rx="5" fill="rgba(255,255,255,0.22)"/>
-        <!-- Rear windshield -->
-        <rect x="12" y="46" width="34" height="10" rx="4" fill="rgba(255,255,255,0.12)"/>
-        <!-- Front wheels (bottom = front, car drives down) -->
-        <rect x="0" y="64" width="9" height="18" rx="4" fill="#0f172a"/>
-        <rect x="49" y="64" width="9" height="18" rx="4" fill="#0f172a"/>
-        <!-- Rear wheels (top) -->
-        <rect x="0" y="16" width="9" height="18" rx="4" fill="#0f172a"/>
-        <rect x="49" y="16" width="9" height="18" rx="4" fill="#0f172a"/>
-        <!-- Headlights (front = bottom) -->
-        <rect x="10" y="86" width="14" height="6" rx="3" fill="#fcd34d" opacity="0.9"/>
-        <rect x="34" y="86" width="14" height="6" rx="3" fill="#fcd34d" opacity="0.9"/>
-        <!-- Tail lights (rear = top) -->
-        <rect x="10" y="8" width="14" height="5" rx="2" fill="#ef4444" opacity="0.85"/>
-        <rect x="34" y="8" width="14" height="5" rx="2" fill="#ef4444" opacity="0.85"/>
-      </svg>
-      <div class="anim-parking-spot">
-        <span class="anim-parking-p">P</span>
-      </div>
-    </div>
-
     <div class="hero-content" data-animate="fade-up">
       <p class="eyebrow hero-eyebrow">eSpotly</p>
       <h1>Spot it. Book it.<br>Park&nbsp;it.</h1>
@@ -99,6 +68,27 @@
 
   <!-- How It Works -->
   <section class="section" id="how-it-works">
+    <!-- Scroll-driven car animation -->
+    <div class="car-scene" aria-hidden="true">
+      <div class="car-road-dashes"></div>
+      <svg class="anim-car" id="heroCar" width="62" height="106" viewBox="0 0 62 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="8" width="52" height="90" rx="13" fill="#00bfa5"/>
+        <rect x="10" y="24" width="42" height="42" rx="9" fill="rgba(0,0,0,0.28)"/>
+        <rect x="13" y="27" width="36" height="16" rx="5" fill="rgba(255,255,255,0.2)"/>
+        <rect x="13" y="48" width="36" height="11" rx="4" fill="rgba(255,255,255,0.1)"/>
+        <rect x="0" y="66" width="9" height="20" rx="4" fill="#0f172a"/>
+        <rect x="53" y="66" width="9" height="20" rx="4" fill="#0f172a"/>
+        <rect x="0" y="16" width="9" height="20" rx="4" fill="#0f172a"/>
+        <rect x="53" y="16" width="9" height="20" rx="4" fill="#0f172a"/>
+        <rect x="10" y="92" width="16" height="7" rx="3" fill="#fcd34d" opacity="0.9"/>
+        <rect x="36" y="92" width="16" height="7" rx="3" fill="#fcd34d" opacity="0.9"/>
+        <rect x="10" y="7" width="16" height="6" rx="2" fill="#ef4444" opacity="0.85"/>
+        <rect x="36" y="7" width="16" height="6" rx="2" fill="#ef4444" opacity="0.85"/>
+      </svg>
+      <div class="anim-parking-spot">
+        <span class="anim-parking-p">P</span>
+      </div>
+    </div>
     <div class="container">
       <p class="eyebrow" data-animate="fade-up">Simple by design</p>
       <h2 class="section-title" data-animate="fade-up">How it works</h2>
