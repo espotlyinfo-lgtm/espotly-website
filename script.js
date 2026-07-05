@@ -1,3 +1,48 @@
+// ── Live counter section (home page only) ─────────────────────────────────────
+(function () {
+  const elDrivers  = document.getElementById('counterDrivers');
+  const elOwners   = document.getElementById('counterOwners');
+  const elListings = document.getElementById('counterListings');
+  if (!elDrivers) return; // not on home page
+
+  const FALLBACK = { drivers: 4, owners: 2, listings: 7 };
+  let animated = false;
+
+  function countUp(el, target, duration) {
+    const start = performance.now();
+    (function step(ts) {
+      const p = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target).toLocaleString();
+      if (p < 1) requestAnimationFrame(step);
+    }(performance.now()));
+  }
+
+  function animateTo(data) {
+    if (animated) return;
+    animated = true;
+    countUp(elDrivers,  data.drivers,  2000);
+    countUp(elOwners,   data.owners,   2000);
+    countUp(elListings, data.listings, 2000);
+  }
+
+  // Trigger animation when the section scrolls into view
+  let fetchedData = null;
+  fetch('https://espotly-backend-production.up.railway.app/api/counts')
+    .then(r => r.json())
+    .then(data => { fetchedData = data; })
+    .catch(() => { fetchedData = FALLBACK; });
+
+  const section = elDrivers.closest('.counter-section');
+  const io = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateTo(fetchedData || FALLBACK);
+      io.disconnect();
+    }
+  }, { threshold: 0.3 });
+  if (section) io.observe(section);
+}());
+
 // Cookie consent banner
 (function() {
   if (localStorage.getItem('espotly_cookie')) return;
