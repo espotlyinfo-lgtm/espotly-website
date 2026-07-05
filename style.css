@@ -210,7 +210,7 @@ ul   { list-style: none; }
 /* ── Car parking animation ───────────────────── */
 #heroCar {
   position: fixed;
-  right: 7.5rem;
+  right: 9rem;
   width: 80px;
   opacity: 0;
   pointer-events: none;
@@ -226,8 +226,8 @@ ul   { list-style: none; }
 
 .anim-parking-spot {
   position: absolute;
-  right: 7.5rem;
-  top: 50%;
+  right: 9rem;
+  top: calc(50% + 1.5rem);
   transform: translateY(-50%);
   width: 96px;
   height: 160px;
