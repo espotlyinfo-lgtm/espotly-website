@@ -255,6 +255,18 @@ ul   { list-style: none; }
 .anim-parking-spot::before { left: 0; }
 .anim-parking-spot::after  { right: 0; }
 
+.anim-parking-inner-line {
+  position: absolute;
+  top: 18%;
+  width: 3px;
+  height: 22%;
+  background: rgba(255,255,255,0.45);
+  border-radius: 2px;
+}
+
+.anim-parking-inner-line:first-child  { left:  30%; }
+.anim-parking-inner-line:nth-child(2) { right: 30%; }
+
 .anim-parking-p {
   font-size: 2rem;
   font-weight: 900;
