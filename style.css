@@ -224,15 +224,9 @@ ul   { list-style: none; }
   position: relative;
 }
 
-/* The For Space Owners card needs relative positioning for the spot */
-.split-card:last-child {
-  position: relative;
-  overflow: visible;
-}
-
 .anim-parking-spot {
   position: absolute;
-  right: -4px;   /* flush with card right edge = viewport right */
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
   width: 96px;
@@ -475,7 +469,7 @@ ul   { list-style: none; }
   gap: 2px;
   margin-top: 5rem;
   border-radius: 20px;
-  overflow: visible;
+  overflow: hidden;
   background: var(--border);
 }
 
