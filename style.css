@@ -882,9 +882,12 @@ ul   { list-style: none; }
   :root { --nav-h: 80px; }
 
   .navbar {
-    background: rgba(0, 0, 0, 0.85);
+    height: auto;
+    min-height: var(--nav-h);
+    background: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: var(--border);
   }
 
   .nav-inner {
