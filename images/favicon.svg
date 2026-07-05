@@ -1,0 +1,11 @@
+<svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pin head: stretched taller (oval/stadium), inner hole now matches same shape proportions -->
+  <path fill-rule="evenodd" fill="rgb(51, 156, 171)" d="
+    M 200,20 A 150,150 0 0 1 350,170 V 290 A 150,150 0 0 1 200,440 A 150,150 0 0 1 50,290 V 170 A 150,150 0 0 1 200,20 Z
+    M 200,90 A 80,80 0 0 1 280,170 V 290 A 80,80 0 0 1 200,370 A 80,80 0 0 1 120,290 V 170 A 80,80 0 0 1 200,90 Z
+  " />
+  <!-- Pin tail -->
+  <polygon fill="rgb(51, 156, 171)" points="150,425 250,425 200,515" />
+  <!-- Lowercase e -->
+  <text x="200" y="275" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="140" fill="rgb(51, 156, 171)" text-anchor="middle">e</text>
+</svg>
