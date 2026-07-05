@@ -210,8 +210,8 @@ ul   { list-style: none; }
 /* ── Car parking animation ───────────────────── */
 #heroCar {
   position: fixed;
-  right: max(1.5rem, calc((100vw - 1080px) / 2));
-  width: 110px;
+  right: 4px;
+  width: 80px;
   opacity: 0;
   pointer-events: none;
   z-index: 50;
@@ -224,18 +224,25 @@ ul   { list-style: none; }
   position: relative;
 }
 
+/* The For Space Owners card needs relative positioning for the spot */
+.split-card:last-child {
+  position: relative;
+  overflow: visible;
+}
+
 .anim-parking-spot {
   position: absolute;
-  right: max(1.5rem, calc((100vw - 1080px) / 2));
-  bottom: 3rem;
-  width: 130px;
-  height: 190px;
+  right: -4px;   /* flush with card right edge = viewport right */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 96px;
+  height: 160px;
   background: #161616;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 0.9rem;
+  padding-bottom: 0.7rem;
 }
 
 .anim-parking-spot::before,
@@ -243,16 +250,16 @@ ul   { list-style: none; }
   content: '';
   position: absolute;
   top: 0; bottom: 0;
-  width: 6px;
+  width: 5px;
   background: #fff;
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
 .anim-parking-spot::before { left: 0; }
 .anim-parking-spot::after  { right: 0; }
 
 .anim-parking-p {
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 900;
   color: rgba(255,255,255,0.15);
   font-style: italic;
@@ -468,7 +475,7 @@ ul   { list-style: none; }
   gap: 2px;
   margin-top: 5rem;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
   background: var(--border);
 }
 
