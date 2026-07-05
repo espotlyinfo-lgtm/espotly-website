@@ -211,7 +211,7 @@ ul   { list-style: none; }
 #heroCar {
   position: fixed;
   right: 9.375rem;
-  width: 80px;
+  width: 95px;
   opacity: 0;
   pointer-events: none;
   z-index: 50;
