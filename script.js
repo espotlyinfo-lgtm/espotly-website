@@ -106,15 +106,17 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
     const vh  = window.innerHeight;
     const sy  = window.scrollY;
 
-    const sectionTop = pageTop(start);
-    const spotTop    = pageTop(spot);
+    const sectionTop    = pageTop(start);
+    const spotTop       = pageTop(spot);
+    const benefitsBot   = pageTop(document.getElementById('benefits')) +
+                          document.getElementById('benefits').offsetHeight;
 
     // Car appears when How It Works reaches 70% down viewport
     const enterAt  = sectionTop - vh * 0.7;
     // Car is parked when spot top sits at 50% of viewport
     const parkedAt = spotTop - vh * 0.5;
-    // Hide after spot scrolls near viewport top
-    const exitAt   = spotTop - vh * 0.15;
+    // Only hide when benefits section fully scrolls off screen
+    const exitAt   = benefitsBot;
 
     if (sy < enterAt || sy > exitAt) {
       car.style.opacity = '0';
@@ -129,7 +131,7 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
     const yStart  = vh * 0.08;
     const yParked = vh * 0.5;
-    // Once parked, track the spot so car stays inside as section scrolls up
+    // Once parked, track the spot so car stays inside as section scrolls
     const yPost   = spotTop - sy;
     const y       = progress < 1 ? yStart + (yParked - yStart) * eased : yPost;
 
