@@ -89,24 +89,42 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-// Car scroll-driven animation in How It Works section
+// Cross-section car scroll animation (How It Works → Your city, your way)
 const heroCar = document.getElementById('heroCar');
 if (heroCar) {
-  const section = document.getElementById('how-it-works');
+  const startSection = document.getElementById('how-it-works');
+  const endSection   = document.getElementById('benefits');
   let raf = false;
 
   function updateCar() {
-    const rect = section.getBoundingClientRect();
-    const sectionH = section.offsetHeight;
-    // progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
-    const progress = Math.min(Math.max(-rect.top / (sectionH - window.innerHeight * 0.3), 0), 1);
-    const eased = 1 - Math.pow(1 - progress, 2);
-    const TRAVEL = section.offsetHeight * 0.72;
-    heroCar.style.transform = `translateY(${-TRAVEL + TRAVEL * eased}px)`;
+    const startTop = startSection.getBoundingClientRect().top + window.scrollY;
+    const endBottom = endSection.getBoundingClientRect().top + window.scrollY + endSection.offsetHeight;
+
+    const scrollY   = window.scrollY;
+    const enterAt   = startTop - window.innerHeight * 0.6;
+    const exitAt    = endBottom - window.innerHeight * 0.2;
+
+    if (scrollY < enterAt || scrollY > exitAt) {
+      heroCar.style.opacity = '0';
+      raf = false;
+      return;
+    }
+
+    const progress = (scrollY - enterAt) / (exitAt - enterAt);
+    const eased    = progress < 0.5
+      ? 2 * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    const topBound    = window.innerHeight * 0.08;
+    const bottomBound = window.innerHeight * 0.78;
+    const y = topBound + (bottomBound - topBound) * eased;
+
+    heroCar.style.opacity = '1';
+    heroCar.style.top = y + 'px';
     raf = false;
   }
 
-  heroCar.style.transition = 'none';
+  heroCar.style.transition = 'opacity 0.3s';
   window.addEventListener('scroll', () => {
     if (!raf) { raf = true; requestAnimationFrame(updateCar); }
   }, { passive: true });

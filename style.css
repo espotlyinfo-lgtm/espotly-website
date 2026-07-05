@@ -208,71 +208,47 @@ ul   { list-style: none; }
 }
 
 /* ── Car parking animation ───────────────────── */
-#how-it-works {
-  position: relative;
-  overflow: hidden;
-}
-
-.car-scene {
-  position: absolute;
-  right: 6%;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 3rem;
+#heroCar {
+  position: fixed;
+  right: 5%;
+  top: 80px;
+  width: 100px;
+  opacity: 0;
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
+  z-index: 50;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
 }
 
-.car-road-dashes {
-  position: absolute;
-  top: 0;
-  bottom: 3rem;
-  width: 3px;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.25) 0,
-    rgba(255,255,255,0.25) 14px,
-    transparent 14px,
-    transparent 28px
-  );
-}
-
-.anim-car {
+#benefits {
   position: relative;
-  z-index: 1;
-  margin-bottom: -2px;
 }
 
 .anim-parking-spot {
+  position: absolute;
+  right: calc(5% + 10px);
+  bottom: 3rem;
   width: 120px;
-  height: 140px;
-  position: relative;
+  height: 150px;
+  border-left: 4px solid rgba(255,255,255,0.4);
+  border-right: 4px solid rgba(255,255,255,0.4);
+  border-bottom: 4px solid rgba(255,255,255,0.4);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Two white painted lines on left and right */
-  border-left: 5px solid rgba(255,255,255,0.55);
-  border-right: 5px solid rgba(255,255,255,0.55);
-  border-bottom: 5px solid rgba(255,255,255,0.55);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  background: rgba(255,255,255,0.03);
+  pointer-events: none;
 }
 
 .anim-parking-p {
   font-size: 2rem;
   font-weight: 900;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.25);
   letter-spacing: 0.08em;
 }
 
 @media (max-width: 900px) {
-  .car-scene { display: none; }
+  #heroCar, .anim-parking-spot { display: none; }
 }
 
 .eyebrow {
