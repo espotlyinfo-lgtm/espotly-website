@@ -22,19 +22,13 @@
     /* ─── HERO ─────────────────────────────────── */
     .tp-hero {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
       padding: calc(var(--nav-h) + 4rem) 2rem 6rem;
       background: radial-gradient(ellipse at 50% -10%, #0f3d35, #012030 50%, #000 100%);
     }
     .tp-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse at 50% 55%, rgba(0,191,165,0.07), transparent 65%);
       pointer-events: none;
     }
@@ -56,77 +50,78 @@
     .tp-btn {
       display: inline-flex; align-items: center; padding: 0.85rem 2rem;
       border-radius: 980px; font-size: 0.9rem; font-weight: 600;
-      letter-spacing: 0.01em; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s; cursor: pointer;
     }
     .tp-btn-primary { background: var(--teal); color: #000; }
     .tp-btn-primary:hover { background: #00a896; transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,191,165,0.4); }
     .tp-btn-ghost { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.12); }
     .tp-btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); }
-
     .tp-scroll-hint {
       position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0.4rem; opacity: 0.35; animation: tp-bounce 2.2s ease-in-out infinite;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0.35; animation: tp-bounce 2.2s ease-in-out infinite;
     }
     .tp-scroll-hint span { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; }
     @keyframes tp-bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(7px); }
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
     }
 
-    /* ─── SCENE 1: Car Pieces ───────────────────── */
+    /* ─── SCENE 1 ──────────────────────────────── */
     #s1 { height: 520vh; }
-    .s1-bg { background: #e8e8e8; transition: background 0.5s; }
+    #s1-pin { background: #e6e6e6; }
 
-    /* Wrapper that we scale responsively */
-    #grid-wrap {
+    /* Assembly stage: holds all car parts */
+    #asm-stage {
       position: relative;
-      /* actual size set by JS */
+      /* width/height set by JS based on part layout */
       transform-origin: center center;
     }
 
-    /* Each piece tile */
-    .cp {
+    /* Individual part images */
+    .part {
       position: absolute;
-      background-image: url(images/Car.png);
+      object-fit: contain;
       will-change: transform, opacity;
+      /* each part's left/top/width set by JS */
     }
 
-    /* Dark curtain for transition */
+    /* Vignette */
+    .s1-vignette {
+      position: absolute; inset: 0; pointer-events: none; z-index: 100;
+      background: radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(0,0,0,0.5) 100%);
+    }
+
+    /* Black curtain for the crossfade transition */
     #s1-curtain {
-      position: absolute; inset: 0;
-      background: #000; opacity: 0; z-index: 20; pointer-events: none;
+      position: absolute; inset: 0; background: #000;
+      opacity: 0; z-index: 110; pointer-events: none;
     }
 
-    /* Assembled car on dark bg */
-    #car-assembled {
+    /* Final assembled car (shown after transition) */
+    #car-final {
       position: absolute; object-fit: contain;
-      opacity: 0; z-index: 25; will-change: opacity, transform;
+      opacity: 0; z-index: 120; will-change: opacity;
+      width: min(55vw, 420px);
     }
 
     /* Text overlays */
     .s1-text {
-      position: absolute; bottom: 9%; left: 50%;
-      transform: translateX(-50%); text-align: center;
-      white-space: nowrap; z-index: 30; opacity: 0; pointer-events: none;
+      position: absolute; bottom: 9%; left: 50%; transform: translateX(-50%);
+      text-align: center; white-space: nowrap; z-index: 130;
+      opacity: 0; pointer-events: none;
     }
     .s1-text h2 {
       font-size: clamp(1.4rem, 3vw, 2.3rem); font-weight: 700;
       letter-spacing: -0.025em; line-height: 1.2;
     }
     .s1-text p { font-size: 0.95rem; margin-top: 0.4rem; }
-    .s1-t1 h2, .s1-t2 h2, .s1-t3 h2 { color: #111; }
-    .s1-t1 p,  .s1-t2 p,  .s1-t3 p  { color: rgba(0,0,0,0.45); }
+    .s1-t1 h2,.s1-t2 h2,.s1-t3 h2 { color: #111; }
+    .s1-t1 p,.s1-t2 p,.s1-t3 p     { color: rgba(0,0,0,0.45); }
     .s1-t4 h2 { color: #fff; }
-    .s1-t4 .teal { color: var(--teal); }
+    .teal { color: var(--teal); }
 
-    /* Vignette over the grid */
-    .s1-vignette {
-      position: absolute; inset: 0; pointer-events: none; z-index: 10;
-      background: radial-gradient(ellipse at 50% 50%, transparent 22%, rgba(0,0,0,0.52) 100%);
-    }
-
-    /* ─── MAP SHARED ─────────────────────────────── */
+    /* ─── MAP shared ───────────────────────────── */
     .tp-map-grid {
       position: absolute; inset: 0;
       background-image:
@@ -134,166 +129,66 @@
         linear-gradient(90deg, rgba(0,191,165,0.07) 1px, transparent 1px);
       background-size: 72px 72px;
     }
-    .tp-map-rv {
-      position: absolute; top: 0; bottom: 0;
-      left: 50%; transform: translateX(-50%);
-      width: 112px; background: #0d1e2c;
-    }
-    .tp-map-rh { position: absolute; left: 0; right: 0; background: #0d1e2c; }
-    .tp-map-block {
-      position: absolute; background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.03); border-radius: 4px;
-    }
+    .tp-map-rv { position: absolute; top:0; bottom:0; left:50%; transform:translateX(-50%); width:112px; background:#0d1e2c; }
+    .tp-map-rh { position: absolute; left:0; right:0; background:#0d1e2c; }
+    .tp-map-block { position: absolute; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.03); border-radius:4px; }
 
-    /* ─── SCENE 2: Road → Map ───────────────────── */
+    /* ─── SCENE 2 ──────────────────────────────── */
     #s2 { height: 250vh; }
-    .s2-bg { background: #030d14; }
+    #s2-pin { background: #030d14; }
+    .tp-road { position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%); width:112px; background:#0e1e2a; will-change:opacity; }
+    .tp-road-stripe { position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%); width:3px;
+      background:repeating-linear-gradient(to bottom, rgba(0,191,165,.55) 0, rgba(0,191,165,.55) 28px, transparent 28px, transparent 58px); }
+    .tp-road-edge { position:absolute; top:0; bottom:0; width:2px; background:rgba(255,255,255,.06); }
+    .tp-road-edge-l { left:0; } .tp-road-edge-r { right:0; }
+    #s2-map { position:absolute; inset:0; opacity:0; pointer-events:none; will-change:opacity; }
+    .tp-car-mini { position:absolute; width:72px; object-fit:contain; z-index:20; will-change:transform; }
 
-    .tp-road {
-      position: absolute; top: 0; bottom: 0;
-      left: 50%; transform: translateX(-50%);
-      width: 112px; background: #0e1e2a; will-change: opacity;
-    }
-    .tp-road-stripe {
-      position: absolute; top: 0; bottom: 0;
-      left: 50%; transform: translateX(-50%); width: 3px;
-      background: repeating-linear-gradient(
-        to bottom, rgba(0,191,165,0.55) 0, rgba(0,191,165,0.55) 28px,
-        transparent 28px, transparent 58px);
-    }
-    .tp-road-edge { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.06); }
-    .tp-road-edge-l { left: 0; } .tp-road-edge-r { right: 0; }
-    #s2-map-layer { position: absolute; inset: 0; opacity: 0; pointer-events: none; will-change: opacity; }
-
-    .tp-car-mini {
-      position: absolute; width: 72px; object-fit: contain; z-index: 20; will-change: transform;
-    }
-
-    /* ─── SCENE 3: Pins + Cards ──────────────────── */
+    /* ─── SCENE 3 ──────────────────────────────── */
     #s3 { height: 260vh; }
-    .s3-bg { background: #030d14; }
+    #s3-pin { background: #030d14; }
+    .tp-pin { position:absolute; display:flex; flex-direction:column; align-items:center; z-index:15; opacity:0; transform-origin:bottom center; will-change:transform,opacity; }
+    .tp-pin-head { width:22px; height:30px; border-radius:50% 50% 50% 50%/58% 58% 42% 42%; background:rgba(255,255,255,.22); position:relative; }
+    .tp-pin-head::after { content:''; position:absolute; bottom:-7px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:8px solid rgba(255,255,255,.22); }
+    .tp-pin.active .tp-pin-head { background:var(--teal); box-shadow:0 0 18px rgba(0,191,165,.65); }
+    .tp-pin.active .tp-pin-head::after { border-top-color:var(--teal); }
+    .tp-pin-lbl { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); margin-top:5px; opacity:0; white-space:nowrap; background:rgba(0,191,165,.12); padding:2px 8px; border-radius:100px; border:1px solid rgba(0,191,165,.3); }
+    .tp-cards { position:absolute; right:max(16px,3%); top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:.55rem; z-index:20; }
+    .tp-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:.85rem 1.1rem; min-width:162px; opacity:0; will-change:transform,opacity; backdrop-filter:blur(16px); }
+    .tp-card.featured { border-color:rgba(0,191,165,.45); background:rgba(0,191,165,.08); }
+    .tp-card-name { font-size:12px; font-weight:600; color:rgba(255,255,255,.85); margin-bottom:2px; }
+    .tp-card-price { font-size:20px; font-weight:700; color:var(--teal); letter-spacing:-.02em; }
+    .tp-card-avail { font-size:11px; color:rgba(255,255,255,.35); margin-top:2px; }
 
-    .tp-pin {
-      position: absolute; display: flex; flex-direction: column; align-items: center;
-      z-index: 15; opacity: 0; transform-origin: bottom center; will-change: transform, opacity;
-    }
-    .tp-pin-head {
-      width: 22px; height: 30px;
-      border-radius: 50% 50% 50% 50% / 58% 58% 42% 42%;
-      background: rgba(255,255,255,0.22); position: relative;
-    }
-    .tp-pin-head::after {
-      content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
-      width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
-      border-top: 8px solid rgba(255,255,255,0.22);
-    }
-    .tp-pin.active .tp-pin-head { background: var(--teal); box-shadow: 0 0 18px rgba(0,191,165,0.65); }
-    .tp-pin.active .tp-pin-head::after { border-top-color: var(--teal); }
-    .tp-pin-lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--teal); margin-top: 5px; opacity: 0; white-space: nowrap;
-      background: rgba(0,191,165,0.12); padding: 2px 8px;
-      border-radius: 100px; border: 1px solid rgba(0,191,165,0.3);
-    }
-    .tp-cards {
-      position: absolute; right: max(16px, 3%); top: 50%;
-      transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.55rem; z-index: 20;
-    }
-    .tp-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px; padding: 0.85rem 1.1rem; min-width: 162px;
-      opacity: 0; will-change: transform, opacity; backdrop-filter: blur(16px);
-    }
-    .tp-card.featured { border-color: rgba(0,191,165,0.45); background: rgba(0,191,165,0.08); }
-    .tp-card-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 2px; }
-    .tp-card-price { font-size: 20px; font-weight: 700; color: var(--teal); letter-spacing: -0.02em; }
-    .tp-card-avail { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
-
-    /* ─── SCENE 4: Park ──────────────────────────── */
+    /* ─── SCENE 4 ──────────────────────────────── */
     #s4 { height: 300vh; }
-    .s4-bg { background: #030d14; }
+    #s4-pin { background: #030d14; }
+    #parking-img { position:absolute; width:220px; object-fit:contain; opacity:0; will-change:opacity; z-index:2; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:6px; }
+    #s4-car { position:absolute; width:72px; object-fit:contain; z-index:10; will-change:transform; top:calc(50% - 190px); left:50%; transform:translateX(-50%) rotate(180deg); }
+    .s4-glow { position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(0,191,165,.12),transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:1; opacity:0; will-change:opacity; }
+    .tp-confirm { position:absolute; top:10%; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:1.25rem; opacity:0; z-index:30; text-align:center; }
+    .tp-check-wrap { position:relative; width:64px; height:64px; display:flex; align-items:center; justify-content:center; }
+    .tp-ring { position:absolute; inset:0; border-radius:50%; border:2px solid var(--teal); opacity:0; will-change:transform,opacity; }
+    .tp-check-circle { width:64px; height:64px; border-radius:50%; background:var(--teal); display:flex; align-items:center; justify-content:center; transform:scale(0); will-change:transform; }
+    .tp-check-circle svg { width:28px; height:28px; stroke:#000; fill:none; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
+    .tp-confirm h2 { font-size:clamp(1.6rem,3vw,2.6rem); font-weight:700; letter-spacing:-.02em; color:#fff; margin-bottom:.35rem; }
+    .tp-trilogy { font-size:.9rem; color:var(--teal); font-weight:600; letter-spacing:.18em; text-transform:uppercase; }
 
-    #parking-slot-img {
-      position: absolute; width: 220px; object-fit: contain; opacity: 0;
-      will-change: opacity; z-index: 2;
-      top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 6px;
-    }
-    #s4-car {
-      position: absolute; width: 72px; object-fit: contain; z-index: 10;
-      will-change: transform;
-      top: calc(50% - 190px); left: 50%;
-      transform: translateX(-50%) rotate(180deg);
-    }
-    .s4-glow {
-      position: absolute; width: 280px; height: 280px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,191,165,0.12), transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%,-50%);
-      pointer-events: none; z-index: 1; opacity: 0; will-change: opacity;
-    }
+    /* ─── FINAL CTA ────────────────────────────── */
+    .tp-final { min-height:55vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#000; text-align:center; padding:5rem 2rem; gap:2rem; border-top:1px solid rgba(255,255,255,.06); }
+    .tp-final h2 { font-size:clamp(2rem,5vw,3.8rem); font-weight:700; letter-spacing:-.03em; color:#fff; max-width:640px; line-height:1.1; }
+    .tp-final h2 em { font-style:normal; color:var(--teal); }
 
-    .tp-confirm {
-      position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center;
-      gap: 1.25rem; opacity: 0; z-index: 30; text-align: center; will-change: opacity;
-    }
-    .tp-check-wrap {
-      position: relative; width: 64px; height: 64px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .tp-ring {
-      position: absolute; inset: 0; border-radius: 50%;
-      border: 2px solid var(--teal); opacity: 0; will-change: transform, opacity;
-    }
-    .tp-check-circle {
-      width: 64px; height: 64px; border-radius: 50%; background: var(--teal);
-      display: flex; align-items: center; justify-content: center;
-      transform: scale(0); will-change: transform;
-    }
-    .tp-check-circle svg {
-      width: 28px; height: 28px; stroke: #000; fill: none;
-      stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round;
-    }
-    .tp-confirm h2 {
-      font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700;
-      letter-spacing: -0.02em; color: #fff; margin-bottom: 0.35rem;
-    }
-    .tp-trilogy {
-      font-size: 0.9rem; color: var(--teal); font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-    }
-
-    /* ─── FINAL CTA ──────────────────────────────── */
-    .tp-final {
-      min-height: 55vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      background: #000; text-align: center; padding: 5rem 2rem; gap: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .tp-final h2 {
-      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 700;
-      letter-spacing: -0.03em; color: #fff; max-width: 640px; line-height: 1.1;
-    }
-    .tp-final h2 em { font-style: normal; color: var(--teal); }
-
-    /* ─── MOBILE ─────────────────────────────────── */
     @media (max-width: 768px) {
-      #s1 { height: 380vh; }
-      #s2 { height: 180vh; }
-      #s3 { height: 200vh; }
-      #s4 { height: 220vh; }
-      .s1-text { white-space: normal; max-width: 280px; }
-      .tp-cards {
-        right: auto; top: auto; bottom: 3%; left: 50%;
-        transform: translateX(-50%); flex-direction: row;
-        flex-wrap: wrap; justify-content: center; max-width: 96vw;
-      }
-      .tp-card { min-width: 140px; }
+      #s1{height:380vh;} #s2{height:180vh;} #s3{height:200vh;} #s4{height:220vh;}
+      .s1-text{white-space:normal;max-width:280px;}
+      .tp-cards{right:auto;top:auto;bottom:3%;left:50%;transform:translateX(-50%);flex-direction:row;flex-wrap:wrap;justify-content:center;max-width:96vw;}
+      .tp-card{min-width:140px;}
     }
   </style>
 </head>
 <body class="tp-page">
 
-  <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="navbar-brand">
@@ -313,19 +208,12 @@
     </div>
   </nav>
 
-  <!-- ═══ HERO ═══════════════════════════════════════ -->
+  <!-- HERO -->
   <section class="tp-hero">
     <div class="tp-hero-content">
       <p class="tp-eyebrow">eSpotly</p>
-      <h1 class="tp-h1">
-        Finding parking <em>shouldn't feel like</em><br>
-        putting the pieces together.
-      </h1>
-      <p class="tp-sub">
-        Every day, drivers waste time searching for an available space.
-        At eSpotly, we bring the pieces together — connecting drivers
-        with available parking before they arrive.
-      </p>
+      <h1 class="tp-h1">Finding parking <em>shouldn't feel like</em><br>putting the pieces together.</h1>
+      <p class="tp-sub">Every day, drivers waste time searching for an available space. At eSpotly, we bring the pieces together — connecting drivers with available parking before they arrive.</p>
       <div class="tp-actions">
         <a href="index.html#contact" class="tp-btn tp-btn-primary">Find Parking</a>
         <a href="owners.html" class="tp-btn tp-btn-ghost">Become a Host</a>
@@ -333,57 +221,36 @@
     </div>
     <div class="tp-scroll-hint" aria-hidden="true">
       <span>Scroll</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
   </section>
 
-  <!-- ═══ SCENE 1: Exploded pieces → assembled ════════ -->
+  <!-- SCENE 1: Individual parts scatter → assemble -->
   <section id="s1">
-    <div class="tp-sticky s1-bg" id="s1-pin">
-
-      <!-- JS will fill this with piece divs -->
-      <div id="grid-wrap"></div>
-
-      <!-- Assembled car shown after transition -->
-      <img id="car-assembled" src="images/3DCar.png" alt="Car assembled"/>
-
-      <!-- Black curtain for crossfade -->
+    <div class="tp-sticky" id="s1-pin">
+      <div id="asm-stage">
+        <!-- Parts injected by JS -->
+      </div>
+      <img id="car-final" src="images/3DCar.png" alt="Assembled car"/>
       <div id="s1-curtain"></div>
-
-      <!-- Vignette darkens edges -->
       <div class="s1-vignette"></div>
-
-      <!-- Text messages -->
-      <div class="s1-text s1-t1" id="s1-t1">
-        <h2>Parking shouldn't be<br>this complicated.</h2>
-      </div>
-      <div class="s1-text s1-t2" id="s1-t2">
-        <h2>Searching. Waiting.<br>Circling.</h2>
-        <p>Sound familiar?</p>
-      </div>
-      <div class="s1-text s1-t3" id="s1-t3">
-        <h2>Every missing piece<br>adds frustration.</h2>
-      </div>
-      <div class="s1-text s1-t4" id="s1-t4">
-        <h2>Until everything comes <span class="teal">together.</span></h2>
-      </div>
-
+      <div class="s1-text s1-t1" id="s1-t1"><h2>Parking shouldn't be<br>this complicated.</h2></div>
+      <div class="s1-text s1-t2" id="s1-t2"><h2>Searching. Waiting.<br>Circling.</h2><p>Sound familiar?</p></div>
+      <div class="s1-text s1-t3" id="s1-t3"><h2>Every missing piece<br>adds frustration.</h2></div>
+      <div class="s1-text s1-t4" id="s1-t4"><h2>Until everything comes <span class="teal">together.</span></h2></div>
     </div>
   </section>
 
-  <!-- ═══ SCENE 2: Car drives / Road → Map ════════════ -->
+  <!-- SCENE 2: Road → Map -->
   <section id="s2">
-    <div class="tp-sticky s2-bg">
+    <div class="tp-sticky" id="s2-pin">
       <div class="tp-road" id="s2-road">
         <div class="tp-road-edge tp-road-edge-l"></div>
         <div class="tp-road-edge tp-road-edge-r"></div>
         <div class="tp-road-stripe"></div>
       </div>
-      <div id="s2-map-layer">
-        <div class="tp-map-grid"></div>
-        <div class="tp-map-rv"></div>
+      <div id="s2-map">
+        <div class="tp-map-grid"></div><div class="tp-map-rv"></div>
         <div class="tp-map-rh" style="top:30%;height:72px;"></div>
         <div class="tp-map-rh" style="top:65%;height:56px;"></div>
         <div class="tp-map-block" style="top:7%;left:5%;width:39%;height:18%;"></div>
@@ -393,17 +260,15 @@
         <div class="tp-map-block" style="top:76%;left:5%;width:39%;height:15%;"></div>
         <div class="tp-map-block" style="top:76%;right:5%;width:37%;height:15%;"></div>
       </div>
-      <img id="s2-car" class="tp-car-mini" src="images/3DCar.png" alt="Car"
-        style="left:50%;margin-left:-36px;"/>
+      <img id="s2-car" class="tp-car-mini" src="images/3DCar.png" alt="Car" style="left:50%;margin-left:-36px;"/>
     </div>
   </section>
 
-  <!-- ═══ SCENE 3: Map Pins + Cards ═══════════════════ -->
+  <!-- SCENE 3: Map Pins + Cards -->
   <section id="s3">
-    <div class="tp-sticky s3-bg">
+    <div class="tp-sticky" id="s3-pin">
       <div style="position:absolute;inset:0;pointer-events:none;">
-        <div class="tp-map-grid"></div>
-        <div class="tp-map-rv"></div>
+        <div class="tp-map-grid"></div><div class="tp-map-rv"></div>
         <div class="tp-map-rh" style="top:30%;height:72px;"></div>
         <div class="tp-map-rh" style="top:65%;height:56px;"></div>
         <div class="tp-map-block" style="top:7%;left:5%;width:39%;height:18%;"></div>
@@ -422,151 +287,131 @@
       </div>
       <div class="tp-pin" id="p5" style="top:68%;right:24%;"><div class="tp-pin-head"></div></div>
       <div class="tp-cards">
-        <div class="tp-card featured" id="c1">
-          <div class="tp-card-name">Condo Parking</div>
-          <div class="tp-card-price">₱80/hr</div>
-          <div class="tp-card-avail">Available Today</div>
-        </div>
-        <div class="tp-card" id="c2">
-          <div class="tp-card-name">BGC Basement</div>
-          <div class="tp-card-price">₱60/hr</div>
-          <div class="tp-card-avail">2 slots left</div>
-        </div>
-        <div class="tp-card" id="c3">
-          <div class="tp-card-name">Makati Lot A</div>
-          <div class="tp-card-price">₱45/hr</div>
-          <div class="tp-card-avail">Open 24/7</div>
-        </div>
+        <div class="tp-card featured" id="c1"><div class="tp-card-name">Condo Parking</div><div class="tp-card-price">₱80/hr</div><div class="tp-card-avail">Available Today</div></div>
+        <div class="tp-card" id="c2"><div class="tp-card-name">BGC Basement</div><div class="tp-card-price">₱60/hr</div><div class="tp-card-avail">2 slots left</div></div>
+        <div class="tp-card" id="c3"><div class="tp-card-name">Makati Lot A</div><div class="tp-card-price">₱45/hr</div><div class="tp-card-avail">Open 24/7</div></div>
       </div>
-      <img id="s3-car" class="tp-car-mini" src="images/3DCar.png" alt="Car"
-        style="bottom:22%;left:50%;margin-left:-36px;"/>
+      <img id="s3-car" class="tp-car-mini" src="images/3DCar.png" alt="Car" style="bottom:22%;left:50%;margin-left:-36px;"/>
     </div>
   </section>
 
-  <!-- ═══ SCENE 4: Car Parks ═══════════════════════════ -->
+  <!-- SCENE 4: Park -->
   <section id="s4">
-    <div class="tp-sticky s4-bg">
+    <div class="tp-sticky" id="s4-pin">
       <div class="s4-glow" id="s4-glow"></div>
-      <img id="parking-slot-img" src="images/Parking.png" alt="Parking slot"/>
+      <img id="parking-img" src="images/parts/parking.png" alt="Parking slot"/>
       <img id="s4-car" src="images/3DCar.png" alt="Car parking"/>
       <div class="tp-confirm" id="tp-confirm">
         <div class="tp-check-wrap">
-          <div class="tp-ring" id="ring1"></div>
-          <div class="tp-ring" id="ring2"></div>
-          <div class="tp-check-circle" id="tp-check">
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
+          <div class="tp-ring" id="ring1"></div><div class="tp-ring" id="ring2"></div>
+          <div class="tp-check-circle" id="tp-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
         </div>
-        <div>
-          <h2>The pieces come together.</h2>
-          <p class="tp-trilogy">Find &nbsp;·&nbsp; Book &nbsp;·&nbsp; Park</p>
-        </div>
+        <div><h2>The pieces come together.</h2><p class="tp-trilogy">Find &nbsp;·&nbsp; Book &nbsp;·&nbsp; Park</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ FINAL CTA ═════════════════════════════════════ -->
+  <!-- FINAL CTA -->
   <section class="tp-final">
     <h2>Parking, made <em>simple.</em></h2>
-    <a href="index.html#contact" class="tp-btn tp-btn-primary"
-      style="font-size:1rem;padding:1rem 2.5rem;">Start Finding Parking</a>
+    <a href="index.html#contact" class="tp-btn tp-btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">Start Finding Parking</a>
   </section>
 
-  <!-- ═══ SCRIPTS ═══════════════════════════════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ─────────────────────────────────────────────────
-       BUILD THE PIECE GRID
-       Car.png is sliced into COLS×ROWS tiles.
-       Each tile is a div with background-position showing
-       its specific crop of the image.
-    ──────────────────────────────────────────────────── */
-    const COLS = 6, ROWS = 5;            // 30 pieces
-    const GW   = 600, GH = 500;          // grid logical size (px)
-    const PW   = GW / COLS;              // 100px per piece
-    const PH   = GH / ROWS;             // 100px per piece
+    /* ══════════════════════════════════════════════
+       PART DEFINITIONS
+       Each part: src, assembled position (left/top/width)
+       relative to the 680×540 stage container,
+       and scatter offset (how far it flies from home).
+    ═══════════════════════════════════════════════ */
+    const STAGE_W = 680, STAGE_H = 540;
 
-    const wrap   = document.getElementById('grid-wrap');
-    wrap.style.width  = GW + 'px';
-    wrap.style.height = GH + 'px';
+    const PARTS = [
+      // Core body — stays roughly center, minimal scatter
+      { src:'Car-Body.png',        w:480, l: 100, t: 60,  z:1,  sx:  0,   sy:   0,  sr:  0  },
+      // Front
+      { src:'Hood.png',            w:320, l: 180, t:  8,  z:4,  sx:  0,   sy:-360,  sr:-18  },
+      { src:'front-bumper.png',    w:380, l: 150, t: -15, z:3,  sx:  0,   sy:-440,  sr: 12  },
+      { src:'headlightsLeft.png',  w:130, l:  90, t: 12,  z:9,  sx:-220,  sy:-380,  sr:-35  },
+      { src:'headlightsRight.png', w:130, l: 460, t: 12,  z:9,  sx: 220,  sy:-380,  sr: 35  },
+      // Cabin / glass
+      { src:'Windshield.png',      w:340, l: 170, t: 95,  z:5,  sx:-180,  sy:-240,  sr:-28  },
+      { src:'Roof.png',            w:280, l: 200, t:165,  z:6,  sx: 200,  sy:-180,  sr: 42  },
+      { src:'rear-glass.png',      w:300, l: 190, t:310,  z:5,  sx:-160,  sy: 220,  sr:-36  },
+      // Doors
+      { src:'left-door.png',       w:250, l: -70, t:155,  z:2,  sx:-480,  sy:  40,  sr:-50  },
+      { src:'right-door.png',      w:250, l: 500, t:155,  z:2,  sx: 480,  sy:  40,  sr: 50  },
+      // Mirrors
+      { src:'left-mirror..png',    w: 80, l:  52, t:178,  z:7,  sx:-420,  sy:-120,  sr:-95  },
+      { src:'right-mirror.png',    w: 80, l: 548, t:178,  z:7,  sx: 420,  sy:-120,  sr: 95  },
+      // Rear
+      { src:'rear-bumper.png',     w:380, l: 150, t:455,  z:3,  sx:   0,  sy: 420,  sr:-14  },
+      { src:'Tailightleft.png',    w:110, l:  92, t:452,  z:9,  sx:-220,  sy: 360,  sr: 30  },
+      { src:'Tailightright.png',   w:110, l: 478, t:452,  z:9,  sx: 220,  sy: 360,  sr:-30  },
+      // Wheels — fly to corners
+      { src:'wheel-front-left.png',  w:115, l:  5, t: 80,  z:8,  sx:-460,  sy:-280,  sr:-130 },
+      { src:'wheel-front-right.png', w:115, l:560, t: 80,  z:8,  sx: 460,  sy:-280,  sr: 130 },
+      { src:'wheel-rear-left.png',   w:115, l:  5, t:345,  z:8,  sx:-460,  sy: 280,  sr: 110 },
+      { src:'wheel-rear-right.png',  w:115, l:560, t:345,  z:8,  sx: 460,  sy: 280,  sr:-110 },
+    ];
 
-    const pieces = [];
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        const el = document.createElement('div');
-        el.className = 'cp';
-        el.style.width  = PW + 'px';
-        el.style.height = PH + 'px';
-        el.style.left   = (c * PW) + 'px';
-        el.style.top    = (r * PH) + 'px';
-        el.style.backgroundSize     = GW + 'px ' + GH + 'px';
-        el.style.backgroundPosition = (-c * PW) + 'px ' + (-r * PH) + 'px';
-        wrap.appendChild(el);
-        pieces.push(el);
-      }
+    /* Build DOM elements */
+    const stage = document.getElementById('asm-stage');
+    stage.style.width  = STAGE_W + 'px';
+    stage.style.height = STAGE_H + 'px';
+
+    const partEls = PARTS.map(p => {
+      const img = document.createElement('img');
+      img.src   = 'images/parts/' + p.src;
+      img.className = 'part';
+      img.style.cssText = `width:${p.w}px;left:${p.l}px;top:${p.t}px;z-index:${p.z};`;
+      img.draggable = false;
+      stage.appendChild(img);
+      return img;
+    });
+
+    /* Scale stage to fit viewport */
+    function scaleStage() {
+      const maxW = window.innerWidth  * 0.92;
+      const maxH = window.innerHeight * 0.74;
+      const s = Math.min(maxW / STAGE_W, maxH / STAGE_H, 1);
+      stage.style.transform = 'scale(' + s + ')';
     }
+    scaleStage();
+    window.addEventListener('resize', () => { scaleStage(); ScrollTrigger.refresh(); });
 
-    /* Scale grid to fit viewport */
-    function scaleGrid() {
-      const maxW = window.innerWidth  * 0.90;
-      const maxH = window.innerHeight * 0.72;
-      const s    = Math.min(maxW / GW, maxH / GH, 1);
-      wrap.style.transform = 'scale(' + s + ')';
-
-      const asmW = Math.min(GW * s * 0.6, 320);
-      const asmEl = document.getElementById('car-assembled');
-      asmEl.style.width  = asmW + 'px';
-      asmEl.style.height = asmW + 'px';
-    }
-    scaleGrid();
-    window.addEventListener('resize', () => { scaleGrid(); ScrollTrigger.refresh(); });
-
-    /* Scatter pieces radially outward from their natural position */
-    const cx = GW / 2, cy = GH / 2;
-    pieces.forEach((el, i) => {
-      const col = i % COLS, row = Math.floor(i / COLS);
-      const dx  = (col + 0.5) * PW - cx;
-      const dy  = (row + 0.5) * PH - cy;
-      const ang = Math.atan2(dy, dx);
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      // Outer pieces fly farther; add a bit of randomness
-      const scatter = 90 + dist * 1.6 + (Math.random() * 60 - 30);
-      const rot     = (Math.random() - 0.5) * 260;
-      gsap.set(el, {
-        x: Math.cos(ang) * scatter,
-        y: Math.sin(ang) * scatter,
-        rotation: rot,
-        opacity: 0.55 + Math.random() * 0.3,
-        scale: 0.7 + Math.random() * 0.25,
+    /* Scatter all parts to their starting positions */
+    PARTS.forEach((p, i) => {
+      gsap.set(partEls[i], {
+        x: p.sx, y: p.sy, rotation: p.sr,
+        opacity: i === 0 ? 0.4 : 0.75, // body slightly faded
+        scale: 0.82 + Math.random() * 0.15,
         transformOrigin: 'center center',
       });
     });
 
-    /* ─────────────────────────────────────────────────
-       SCENE 1: Pieces fly together on scroll
-    ──────────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       SCENE 1 ANIMATION
+    ═══════════════════════════════════════════════ */
     const s1 = gsap.timeline({
       scrollTrigger: {
-        trigger: '#s1',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
+        trigger: '#s1', start: 'top top', end: 'bottom bottom', scrub: 1,
       }
     });
 
     s1
-      /* Text 1 fades in while pieces are scattered */
-      .to('#s1-t1', { opacity: 1, duration: 0.12 }, 0.02)
+      .to('#s1-t1', { opacity: 1, duration: 0.13 }, 0.02)
 
-      /* Pieces fly from scatter into their correct positions */
-      .to(pieces, {
+      /* All parts fly home — stagger from center outward */
+      .to(partEls, {
         x: 0, y: 0, rotation: 0, opacity: 1, scale: 1,
-        duration: 0.50,
-        stagger: { amount: 0.22, from: 'center', ease: 'power1.in' },
+        duration: 0.52,
+        stagger: { amount: 0.24, from: 'center' },
         ease: 'power3.out',
       }, 0.06)
 
@@ -576,88 +421,62 @@
       .to('#s1-t3', { opacity: 1, duration: 0.10 }, 0.50)
       .to('#s1-t3', { opacity: 0, duration: 0.10 }, 0.62)
 
-      /* Black curtain wipes away the grid → reveals dark bg + assembled car */
+      /* Curtain drops → swap to dark bg + assembled car */
       .to('#s1-curtain', { opacity: 1, duration: 0.08 }, 0.64)
-      .to('#s1-pin', { backgroundColor: '#030d14', duration: 0.01 }, 0.70)
-      .to(pieces, { opacity: 0, duration: 0.01 }, 0.70)
+      .to('#s1-pin',     { backgroundColor: '#030d14', duration: 0.01 }, 0.70)
+      .to(partEls,       { opacity: 0, duration: 0.01 }, 0.70)
       .to('#s1-curtain', { opacity: 0, duration: 0.10 }, 0.71)
-      .to('#car-assembled', { opacity: 1, duration: 0.14 }, 0.72)
+      .to('#car-final',  { opacity: 1, duration: 0.14 }, 0.72)
+      .to('#s1-t4',      { opacity: 1, duration: 0.12 }, 0.80)
+      .to('#car-final',  { scale: 1.05, duration: 0.08, ease: 'power1.out' }, 0.90)
+      .to('#car-final',  { scale: 1.00, duration: 0.08, ease: 'power1.in'  }, 0.97);
 
-      /* Text 4 and gentle car pulse */
-      .to('#s1-t4', { opacity: 1, duration: 0.12 }, 0.80)
-      .to('#car-assembled', { scale: 1.05, duration: 0.08, ease: 'power1.out' }, 0.90)
-      .to('#car-assembled', { scale: 1.00, duration: 0.08, ease: 'power1.in'  }, 0.97);
-
-    /* ─────────────────────────────────────────────────
-       SCENE 2: Car drives up the road, road morphs to map
-    ──────────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       SCENE 2
+    ═══════════════════════════════════════════════ */
     gsap.set('#s2-car', { y: '110vh' });
-
     const s2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#s2',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      }
+      scrollTrigger: { trigger:'#s2', start:'top top', end:'bottom bottom', scrub:1 }
     });
+    s2.to('#s2-car',  { y:'-45vh', duration:0.55, ease:'none' }, 0)
+      .to('#s2-road', { opacity:0, duration:0.22 }, 0.34)
+      .to('#s2-map',  { opacity:1, duration:0.30 }, 0.38)
+      .to('#s2-car',  { y:'-38vh', duration:0.18, ease:'power2.out' }, 0.56);
 
-    s2
-      .to('#s2-car',      { y: '-45vh', duration: 0.55, ease: 'none' }, 0)
-      .to('#s2-road',     { opacity: 0, duration: 0.22 }, 0.34)
-      .to('#s2-map-layer',{ opacity: 1, duration: 0.30 }, 0.38)
-      .to('#s2-car',      { y: '-38vh', duration: 0.18, ease: 'power2.out' }, 0.56);
-
-    /* ─────────────────────────────────────────────────
-       SCENE 3: Pins pop, cards slide, car steers
-    ──────────────────────────────────────────────────── */
-    gsap.set(['#p1','#p2','#p3','#p4','#p5'], { scale: 0, y: 14, opacity: 0 });
-    gsap.set('#p4-lbl', { opacity: 0 });
-    gsap.set(['#c1','#c2','#c3'], { x: 36, opacity: 0 });
-
+    /* ══════════════════════════════════════════════
+       SCENE 3
+    ═══════════════════════════════════════════════ */
+    gsap.set(['#p1','#p2','#p3','#p4','#p5'], { scale:0, y:14, opacity:0 });
+    gsap.set('#p4-lbl', { opacity:0 });
+    gsap.set(['#c1','#c2','#c3'], { x:36, opacity:0 });
     const s3 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#s3',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      }
+      scrollTrigger: { trigger:'#s3', start:'top top', end:'bottom bottom', scrub:1 }
     });
+    s3.to('#p1', { opacity:1, scale:1, y:0, duration:0.08, ease:'back.out(2)' }, 0.05)
+      .to('#p2', { opacity:1, scale:1, y:0, duration:0.08, ease:'back.out(2)' }, 0.11)
+      .to('#p3', { opacity:1, scale:1, y:0, duration:0.08, ease:'back.out(2)' }, 0.17)
+      .to('#p5', { opacity:1, scale:1, y:0, duration:0.08, ease:'back.out(2)' }, 0.23)
+      .to('#p4',    { opacity:1, scale:1.45, duration:0.10, ease:'back.out(3)' }, 0.30)
+      .to('#p4-lbl',{ opacity:1, duration:0.08 }, 0.38)
+      .to('#c1', { opacity:1, x:0, duration:0.12, ease:'power2.out' }, 0.37)
+      .to('#c2', { opacity:1, x:0, duration:0.12, ease:'power2.out' }, 0.44)
+      .to('#c3', { opacity:1, x:0, duration:0.12, ease:'power2.out' }, 0.51)
+      .to('#s3-car', { x:'20vw', y:'-18vh', rotation:-22, duration:0.30, ease:'power2.inOut' }, 0.58);
 
-    s3
-      .to('#p1', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.05)
-      .to('#p2', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.11)
-      .to('#p3', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.17)
-      .to('#p5', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.23)
-      .to('#p4',    { opacity: 1, scale: 1.45, duration: 0.10, ease: 'back.out(3)' }, 0.30)
-      .to('#p4-lbl',{ opacity: 1, duration: 0.08 }, 0.38)
-      .to('#c1', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.37)
-      .to('#c2', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.44)
-      .to('#c3', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.51)
-      .to('#s3-car', { x: '20vw', y: '-18vh', rotation: -22, duration: 0.30, ease: 'power2.inOut' }, 0.58);
-
-    /* ─────────────────────────────────────────────────
-       SCENE 4: Parking slot, car reverses in, confirmation
-    ──────────────────────────────────────────────────── */
-    gsap.set(['#ring1','#ring2'], { scale: 1, opacity: 0.7 });
-
+    /* ══════════════════════════════════════════════
+       SCENE 4
+    ═══════════════════════════════════════════════ */
+    gsap.set(['#ring1','#ring2'], { scale:1, opacity:0.7 });
     const s4 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#s4',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      }
+      scrollTrigger: { trigger:'#s4', start:'top top', end:'bottom bottom', scrub:1 }
     });
-
-    s4
-      .to('#s4-glow',          { opacity: 1, duration: 0.14 }, 0.04)
-      .to('#parking-slot-img', { opacity: 1, duration: 0.18 }, 0.06)
-      .to('#s4-car', { y: 168, duration: 0.38, ease: 'power2.inOut' }, 0.22)
-      .to('#tp-confirm', { opacity: 1, duration: 0.10 }, 0.70)
-      .to('#tp-check',   { scale: 1,  duration: 0.12, ease: 'back.out(2)' }, 0.72)
-      .to('#ring1', { scale: 2.3, opacity: 0, duration: 0.18, ease: 'power2.out' }, 0.78)
-      .to('#ring2', { scale: 2.9, opacity: 0, duration: 0.18, ease: 'power2.out' }, 0.84);
+    s4.to('#s4-glow',    { opacity:1, duration:0.14 }, 0.04)
+      .to('#parking-img',{ opacity:1, duration:0.18 }, 0.06)
+      .to('#s4-car',     { y:168, duration:0.38, ease:'power2.inOut' }, 0.22)
+      .to('#tp-confirm', { opacity:1, duration:0.10 }, 0.70)
+      .to('#tp-check',   { scale:1, duration:0.12, ease:'back.out(2)' }, 0.72)
+      .to('#ring1', { scale:2.3, opacity:0, duration:0.18, ease:'power2.out' }, 0.78)
+      .to('#ring2', { scale:2.9, opacity:0, duration:0.18, ease:'power2.out' }, 0.84);
 
     window.addEventListener('load', () => ScrollTrigger.refresh());
   </script>
