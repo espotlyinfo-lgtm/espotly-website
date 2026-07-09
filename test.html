@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eSpotly – Find Parking, Simplified</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <style>
+    /* ── Test page overrides ───────────────────────── */
+    .tp-page { overflow-x: hidden; }
+
+    /* ── Hero ─────────────────────────────────────── */
+    .tp-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 4rem) 2rem 6rem;
+      background: radial-gradient(ellipse at 50% 0%, #0f3d35 0%, #012030 50%, #000 100%);
+    }
+
+    .tp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0,191,165,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .tp-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tp-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.75rem;
+    }
+
+    .tp-h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .tp-h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .tp-sub {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      max-width: 580px;
+      margin: 0 auto 2.75rem;
+    }
+
+    .tp-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tp-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.85rem 2rem;
+      border-radius: 980px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s;
+      cursor: pointer;
+    }
+
+    .tp-btn-primary {
+      background: var(--teal);
+      color: #000;
+    }
+
+    .tp-btn-primary:hover {
+      background: #00a896;
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(0,191,165,0.4);
+    }
+
+    .tp-btn-ghost {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .tp-btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .tp-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.35;
+      animation: tp-bounce 2.2s ease-in-out infinite;
+    }
+
+    .tp-scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    @keyframes tp-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── Scene shared ──────────────────────────────── */
+    .tp-scene { position: relative; }
+
+    .tp-scene-pin {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tp-scene-bg-dark  { background: #030d14; }
+    .tp-scene-bg-map   { background: #030e18; }
+
+    /* ── Scene 1: Car Assembly ─────────────────────── */
+    .tp-s1 { height: 450vh; }
+
+    .tp-s1-pin { background: #000; }
+
+    .tp-car-stage {
+      position: relative;
+      width: 180px;
+      height: 288px;
+      z-index: 2;
+    }
+
+    .tp-car-svg { overflow: visible; display: block; width: 100%; height: 100%; }
+
+    .car-piece { will-change: transform, opacity; }
+
+    .tp-s1-texts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8vh;
+    }
+
+    .tp-s1-text {
+      position: absolute;
+      bottom: 8vh;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .tp-s1-text h2 {
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .tp-s1-text p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.5rem;
+    }
+
+    .tp-s1-text .teal { color: var(--teal); }
+
+    /* floating ring around car */
+    .tp-assembly-ring {
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,191,165,0.08);
+      pointer-events: none;
+    }
+
+    /* ── Scene 2: Road → Map ───────────────────────── */
+    .tp-s2 { height: 280vh; }
+
+    .tp-road-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tp-road {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      background: #111;
+    }
+
+    .tp-road-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--teal) 0, var(--teal) 28px,
+        transparent 28px, transparent 56px
+      );
+      opacity: 0.4;
+    }
+
+    .tp-road-shoulder-l,
+    .tp-road-shoulder-r {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .tp-road-shoulder-l { left: 0; }
+    .tp-road-shoulder-r { right: 0; }
+
+    /* City map overlay */
+    .tp-map-layer {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tp-map-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,191,165,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,191,165,0.07) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .tp-map-block {
+      position: absolute;
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+    }
+
+    .tp-map-road-v {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%; transform: translateX(-50%);
+      width: 110px;
+      background: #0e2030;
+    }
+
+    .tp-map-road-h {
+      position: absolute;
+      left: 0; right: 0;
+      background: #0e2030;
+    }
+
+    /* Mini car (for driving scenes) */
+    .tp-mini-car {
+      position: absolute;
+      width: 52px;
+      height: 83px;
+      left: 50%;
+      margin-left: -26px;
+      z-index: 20;
+      will-change: transform;
+    }
+
+    /* ── Scene 3: Pins + Cards ─────────────────────── */
+    .tp-s3 { height: 280vh; }
+
+    .tp-pin {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 15;
+      opacity: 0;
+      transform-origin: bottom center;
+    }
+
+    .tp-pin-dot {
+      width: 24px;
+      height: 32px;
+      border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+      background: rgba(255,255,255,0.2);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tp-pin-dot::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid rgba(255,255,255,0.2);
+    }
+
+    .tp-pin.active .tp-pin-dot {
+      background: var(--teal);
+      box-shadow: 0 0 20px rgba(0,191,165,0.5);
+    }
+
+    .tp-pin.active .tp-pin-dot::after {
+      border-top-color: var(--teal);
+    }
+
+    .tp-pin-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-top: 6px;
+      opacity: 0;
+      white-space: nowrap;
+      background: rgba(0,191,165,0.1);
+      padding: 3px 8px;
+      border-radius: 100px;
+      border: 1px solid rgba(0,191,165,0.25);
+    }
+
+    .tp-cards {
+      position: absolute;
+      right: max(3%, 24px);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      z-index: 20;
+    }
+
+    .tp-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 0.9rem 1.1rem;
+      min-width: 168px;
+      opacity: 0;
+      backdrop-filter: blur(20px);
+    }
+
+    .tp-card.featured {
+      border-color: rgba(0,191,165,0.4);
+      background: rgba(0,191,165,0.07);
+    }
+
+    .tp-card-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 3px;
+    }
+
+    .tp-card-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+    }
+
+    .tp-card-avail {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 3px;
+    }
+
+    /* ── Scene 4: Park ──────────────────────────────── */
+    .tp-s4 { height: 320vh; }
+
+    .tp-slot-wrap {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 160px;
+      z-index: 5;
+    }
+
+    .tp-slot-line {
+      position: absolute;
+      background: rgba(255,255,255,0.7);
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .tp-slot-ll { left: 0; top: 0; width: 2px; height: 100%; transform: scaleY(0); transform-origin: bottom; }
+    .tp-slot-rl { right: 0; top: 0; width: 2px; height: 100%; transform: scaleY(0); transform-origin: bottom; }
+    .tp-slot-tl { top: 0; left: 0; width: 100%; height: 2px; transform: scaleX(0); transform-origin: left; }
+
+    .tp-slot-p {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 52px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.06);
+      opacity: 0;
+      user-select: none;
+    }
+
+    .tp-park-car {
+      position: absolute;
+      width: 52px;
+      height: 83px;
+      left: 50%;
+      margin-left: -26px;
+      top: 50%;
+      margin-top: -41px;
+      z-index: 20;
+      will-change: transform;
+    }
+
+    .tp-confirm {
+      position: absolute;
+      top: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      opacity: 0;
+      z-index: 30;
+      text-align: center;
+    }
+
+    .tp-check-wrap {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tp-check-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--teal);
+      opacity: 0;
+    }
+
+    .tp-check-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0);
+    }
+
+    .tp-check-circle svg {
+      width: 28px; height: 28px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tp-confirm-text h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .tp-trilogy {
+      font-size: 1rem;
+      color: var(--teal);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── Final CTA ──────────────────────────────────── */
+    .tp-final {
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      text-align: center;
+      padding: 5rem 2rem;
+      gap: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .tp-final h2 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      max-width: 640px;
+      line-height: 1.1;
+    }
+
+    .tp-final h2 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    /* ── Mobile ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .tp-s1 { height: 300vh; }
+      .tp-s2 { height: 200vh; }
+      .tp-s3 { height: 200vh; }
+      .tp-s4 { height: 220vh; }
+      .tp-car-stage { width: 130px; height: 208px; }
+      .tp-assembly-ring { width: 250px; height: 250px; }
+
+      .tp-cards {
+        right: auto;
+        top: auto;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 92vw;
+      }
+
+      .tp-card { min-width: 140px; }
+
+      .tp-s1-text { white-space: normal; max-width: 280px; }
+    }
+  </style>
+</head>
+<body class="tp-page">
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/EspotlyLogo.png" alt="eSpotly" class="navbar-logo" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="owners.html" class="nav-owners">For Owners</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="test.html" class="active">Test</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─────────────────────────────────────────────
+       HERO
+  ───────────────────────────────────────────────── -->
+  <section class="tp-hero">
+    <div class="tp-hero-content">
+      <p class="tp-eyebrow">eSpotly</p>
+      <h1 class="tp-h1">
+        Finding parking <em>shouldn't feel like</em><br>
+        putting the pieces together.
+      </h1>
+      <p class="tp-sub">
+        Every day, drivers waste time searching for an available space.
+        At eSpotly, we bring the pieces together—connecting drivers with
+        available parking before they arrive, so parking becomes the
+        easiest part of the journey.
+      </p>
+      <div class="tp-actions">
+        <a href="index.html#contact" class="tp-btn tp-btn-primary">Find Parking</a>
+        <a href="owners.html" class="tp-btn tp-btn-ghost">Become a Host</a>
+      </div>
+    </div>
+    <div class="tp-scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       SCENE 1 — Exploded Car Assembly
+  ───────────────────────────────────────────────── -->
+  <section class="tp-scene tp-s1" id="tp-s1">
+    <div class="tp-scene-pin tp-s1-pin" id="tp-s1-pin">
+
+      <!-- Ambient ring -->
+      <div class="tp-assembly-ring" id="tp-ring" style="opacity:0;"></div>
+
+      <!-- Car SVG (14 individual pieces) -->
+      <div class="tp-car-stage" id="tp-car">
+        <svg class="tp-car-svg" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Main body -->
+          <rect class="car-piece" id="cp-body"
+            x="20" y="20" width="160" height="280" rx="28"
+            fill="#00bfa5"/>
+          <!-- Cabin / roof -->
+          <rect class="car-piece" id="cp-cabin"
+            x="36" y="96" width="128" height="128" rx="14"
+            fill="#009e88"/>
+          <!-- Front windshield -->
+          <rect class="car-piece" id="cp-wf"
+            x="44" y="102" width="112" height="52" rx="10"
+            fill="#b2ece6" opacity="0.75"/>
+          <!-- Rear windshield -->
+          <rect class="car-piece" id="cp-wr"
+            x="44" y="166" width="112" height="52" rx="10"
+            fill="#b2ece6" opacity="0.75"/>
+          <!-- Wheel front-left -->
+          <rect class="car-piece" id="cp-wfl"
+            x="4" y="54" width="26" height="50" rx="8"
+            fill="#012030"/>
+          <!-- Wheel front-right -->
+          <rect class="car-piece" id="cp-wfr"
+            x="170" y="54" width="26" height="50" rx="8"
+            fill="#012030"/>
+          <!-- Wheel rear-left -->
+          <rect class="car-piece" id="cp-wrl"
+            x="4" y="216" width="26" height="50" rx="8"
+            fill="#012030"/>
+          <!-- Wheel rear-right -->
+          <rect class="car-piece" id="cp-wrr"
+            x="170" y="216" width="26" height="50" rx="8"
+            fill="#012030"/>
+          <!-- Headlight left -->
+          <rect class="car-piece" id="cp-hll"
+            x="24" y="22" width="48" height="14" rx="6"
+            fill="#fff3cd"/>
+          <!-- Headlight right -->
+          <rect class="car-piece" id="cp-hlr"
+            x="128" y="22" width="48" height="14" rx="6"
+            fill="#fff3cd"/>
+          <!-- Tail light left -->
+          <rect class="car-piece" id="cp-tll"
+            x="24" y="284" width="48" height="14" rx="6"
+            fill="#ff6b6b"/>
+          <!-- Tail light right -->
+          <rect class="car-piece" id="cp-tlr"
+            x="128" y="284" width="48" height="14" rx="6"
+            fill="#ff6b6b"/>
+          <!-- Mirror left -->
+          <rect class="car-piece" id="cp-ml"
+            x="2" y="118" width="20" height="10" rx="4"
+            fill="#007d6b"/>
+          <!-- Mirror right -->
+          <rect class="car-piece" id="cp-mr"
+            x="178" y="118" width="20" height="10" rx="4"
+            fill="#007d6b"/>
+        </svg>
+      </div>
+
+      <!-- Text messages -->
+      <div class="tp-s1-texts">
+        <div class="tp-s1-text" id="tp-t1" style="opacity:0;">
+          <h2>Parking shouldn't be<br>this complicated.</h2>
+        </div>
+        <div class="tp-s1-text" id="tp-t2" style="opacity:0;">
+          <h2>Searching.<br>Waiting.<br>Circling.</h2>
+          <p>Sound familiar?</p>
+        </div>
+        <div class="tp-s1-text" id="tp-t3" style="opacity:0;">
+          <h2>Every missing piece<br>adds frustration.</h2>
+        </div>
+        <div class="tp-s1-text" id="tp-t4" style="opacity:0;">
+          <h2>Until everything comes <span class="teal">together.</span></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       SCENE 2 — Car Drives / Road → City Map
+  ───────────────────────────────────────────────── -->
+  <section class="tp-scene tp-s2" id="tp-s2">
+    <div class="tp-scene-pin tp-scene-bg-dark" id="tp-s2-pin">
+
+      <!-- Road -->
+      <div class="tp-road" id="tp-road">
+        <div class="tp-road-shoulder-l"></div>
+        <div class="tp-road-shoulder-r"></div>
+        <div class="tp-road-line"></div>
+      </div>
+
+      <!-- City map (fades in) -->
+      <div class="tp-map-layer" id="tp-map-layer">
+        <div class="tp-map-grid-bg"></div>
+        <!-- Vertical main road -->
+        <div class="tp-map-road-v"></div>
+        <!-- Horizontal streets -->
+        <div class="tp-map-road-h" style="top:32%;height:68px;"></div>
+        <div class="tp-map-road-h" style="top:66%;height:52px;"></div>
+        <!-- City blocks -->
+        <div class="tp-map-block" style="top:10%;left:8%;width:36%;height:18%;"></div>
+        <div class="tp-map-block" style="top:10%;right:8%;width:34%;height:18%;"></div>
+        <div class="tp-map-block" style="top:42%;left:8%;width:34%;height:18%;"></div>
+        <div class="tp-map-block" style="top:42%;right:8%;width:36%;height:18%;"></div>
+        <div class="tp-map-block" style="top:76%;left:8%;width:36%;height:16%;"></div>
+        <div class="tp-map-block" style="top:76%;right:8%;width:34%;height:16%;"></div>
+      </div>
+
+      <!-- Driving car -->
+      <div class="tp-mini-car" id="tp-drive-car">
+        <svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="160" height="280" rx="28" fill="#00bfa5"/>
+          <rect x="36" y="96" width="128" height="128" rx="14" fill="#009e88"/>
+          <rect x="44" y="102" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="44" y="166" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="4" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="4" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="24" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+          <rect x="128" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       SCENE 3 — Map Pins + Parking Cards
+  ───────────────────────────────────────────────── -->
+  <section class="tp-scene tp-s3" id="tp-s3">
+    <div class="tp-scene-pin tp-scene-bg-map" id="tp-s3-pin">
+
+      <!-- Map background -->
+      <div style="position:absolute;inset:0;pointer-events:none;">
+        <div class="tp-map-grid-bg"></div>
+        <div class="tp-map-road-v"></div>
+        <div class="tp-map-road-h" style="top:32%;height:68px;"></div>
+        <div class="tp-map-road-h" style="top:66%;height:52px;"></div>
+        <div class="tp-map-block" style="top:10%;left:8%;width:36%;height:18%;"></div>
+        <div class="tp-map-block" style="top:10%;right:8%;width:34%;height:18%;"></div>
+        <div class="tp-map-block" style="top:42%;left:8%;width:34%;height:18%;"></div>
+        <div class="tp-map-block" style="top:42%;right:8%;width:36%;height:18%;"></div>
+        <div class="tp-map-block" style="top:76%;left:8%;width:36%;height:16%;"></div>
+        <div class="tp-map-block" style="top:76%;right:8%;width:34%;height:16%;"></div>
+      </div>
+
+      <!-- Map pins -->
+      <div class="tp-pin" id="tp-pin1" style="top:22%;left:24%;">
+        <div class="tp-pin-dot"></div>
+      </div>
+      <div class="tp-pin" id="tp-pin2" style="top:18%;right:22%;">
+        <div class="tp-pin-dot"></div>
+      </div>
+      <div class="tp-pin" id="tp-pin3" style="top:58%;left:30%;">
+        <div class="tp-pin-dot"></div>
+      </div>
+      <div class="tp-pin active" id="tp-pin4" style="top:38%;right:36%;">
+        <div class="tp-pin-dot"></div>
+        <div class="tp-pin-label" id="tp-pin4-label">Available Nearby</div>
+      </div>
+      <div class="tp-pin" id="tp-pin5" style="top:72%;right:28%;">
+        <div class="tp-pin-dot"></div>
+      </div>
+
+      <!-- Parking cards -->
+      <div class="tp-cards">
+        <div class="tp-card featured" id="tp-c1">
+          <div class="tp-card-name">Condo Parking</div>
+          <div class="tp-card-price">₱80/hr</div>
+          <div class="tp-card-avail">Available Today</div>
+        </div>
+        <div class="tp-card" id="tp-c2">
+          <div class="tp-card-name">BGC Basement</div>
+          <div class="tp-card-price">₱60/hr</div>
+          <div class="tp-card-avail">2 slots left</div>
+        </div>
+        <div class="tp-card" id="tp-c3">
+          <div class="tp-card-name">Makati Lot A</div>
+          <div class="tp-card-price">₱45/hr</div>
+          <div class="tp-card-avail">Open 24/7</div>
+        </div>
+      </div>
+
+      <!-- Navigating car -->
+      <div class="tp-mini-car" id="tp-nav-car" style="top:auto;bottom:20%;margin-left:-26px;">
+        <svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="160" height="280" rx="28" fill="#00bfa5"/>
+          <rect x="36" y="96" width="128" height="128" rx="14" fill="#009e88"/>
+          <rect x="44" y="102" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="44" y="166" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="4" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="4" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="24" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+          <rect x="128" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       SCENE 4 — Car Parks + Confirmation
+  ───────────────────────────────────────────────── -->
+  <section class="tp-scene tp-s4" id="tp-s4">
+    <div class="tp-scene-pin tp-scene-bg-map" id="tp-s4-pin">
+
+      <!-- Ambient glow under slot -->
+      <div id="tp-slot-glow" style="
+        position:absolute; width:160px; height:160px;
+        border-radius:50%; background:radial-gradient(circle,rgba(0,191,165,0.15),transparent 70%);
+        top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none;">
+      </div>
+
+      <!-- Parking slot lines -->
+      <div class="tp-slot-wrap" id="tp-slot">
+        <div class="tp-slot-line tp-slot-ll" id="tp-sll"></div>
+        <div class="tp-slot-line tp-slot-rl" id="tp-srl"></div>
+        <div class="tp-slot-line tp-slot-tl" id="tp-stl"></div>
+        <div class="tp-slot-p" id="tp-sp">P</div>
+      </div>
+
+      <!-- Car that parks -->
+      <div class="tp-park-car" id="tp-park-car">
+        <svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="160" height="280" rx="28" fill="#00bfa5"/>
+          <rect x="36" y="96" width="128" height="128" rx="14" fill="#009e88"/>
+          <rect x="44" y="102" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="44" y="166" width="112" height="52" rx="10" fill="#b2ece6" opacity="0.75"/>
+          <rect x="4" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="54" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="4" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="170" y="216" width="26" height="50" rx="8" fill="#012030"/>
+          <rect x="24" y="284" width="48" height="14" rx="6" fill="#ff6b6b"/>
+          <rect x="128" y="284" width="48" height="14" rx="6" fill="#ff6b6b"/>
+          <rect x="24" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+          <rect x="128" y="22" width="48" height="14" rx="6" fill="#fff3cd"/>
+        </svg>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="tp-confirm" id="tp-confirm">
+        <div class="tp-check-wrap">
+          <div class="tp-check-ring" id="tp-ring1"></div>
+          <div class="tp-check-ring" id="tp-ring2"></div>
+          <div class="tp-check-circle" id="tp-check">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+        </div>
+        <div class="tp-confirm-text">
+          <h2>The pieces come together.</h2>
+          <p class="tp-trilogy">Find &nbsp;·&nbsp; Book &nbsp;·&nbsp; Park</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       FINAL CTA
+  ───────────────────────────────────────────────── -->
+  <section class="tp-final">
+    <h2>Parking, made <em>simple.</em></h2>
+    <a href="index.html#contact" class="tp-btn tp-btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">
+      Start Finding Parking
+    </a>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       SCRIPTS
+  ───────────────────────────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ── Lenis smooth scroll ──────────────────────── */
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* ── Scatter car pieces ───────────────────────── */
+    const SCATTER = [
+      { x: -190, y: -110, r: -42 }, // body
+      { x:  150, y:  -85, r:  35 }, // cabin
+      { x: -160, y:   65, r: -65 }, // wind front
+      { x:  175, y:  105, r:  55 }, // wind rear
+      { x: -210, y:  -75, r: -95 }, // wheel FL
+      { x:  210, y:  -70, r:  95 }, // wheel FR
+      { x: -200, y:  125, r: -85 }, // wheel RL
+      { x:  200, y:  115, r:  85 }, // wheel RR
+      { x:  -55, y: -210, r: -28 }, // headlight L
+      { x:   65, y: -200, r:  28 }, // headlight R
+      { x:  -55, y:  210, r: -28 }, // tail L
+      { x:   65, y:  200, r:  28 }, // tail R
+      { x: -230, y:   15, r:-125 }, // mirror L
+      { x:  230, y:   25, r: 125 }, // mirror R
+    ];
+
+    const pieces = gsap.utils.toArray('.car-piece');
+    pieces.forEach((el, i) => {
+      const s = SCATTER[i] || { x: 0, y: 0, r: 0 };
+      gsap.set(el, { x: s.x, y: s.y, rotation: s.r, opacity: 0.55, transformOrigin: 'center center' });
+    });
+
+    /* ── SCENE 1: Assembly ────────────────────────── */
+    const s1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#tp-s1',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.8,
+        pin: '#tp-s1-pin',
+        anticipatePin: 1,
+      }
+    });
+
+    // Ring fades in early
+    s1.to('#tp-ring', { opacity: 1, duration: 0.08 }, 0)
+      // Text 1 in
+      .to('#tp-t1', { opacity: 1, y: 0, duration: 0.14 }, 0.02)
+      // Pieces assemble
+      .to(pieces, {
+        x: 0, y: 0, rotation: 0, opacity: 1,
+        duration: 0.55,
+        stagger: { each: 0.04, from: 'edges' },
+        ease: 'power3.out'
+      }, 0.06)
+      // Text 1 out
+      .to('#tp-t1', { opacity: 0, duration: 0.1 }, 0.22)
+      // Text 2 in/out
+      .to('#tp-t2', { opacity: 1, duration: 0.1 }, 0.28)
+      .to('#tp-t2', { opacity: 0, duration: 0.1 }, 0.46)
+      // Text 3 in/out
+      .to('#tp-t3', { opacity: 1, duration: 0.1 }, 0.52)
+      .to('#tp-t3', { opacity: 0, duration: 0.1 }, 0.68)
+      // Text 4 stays
+      .to('#tp-t4', { opacity: 1, duration: 0.12 }, 0.74)
+      // Car breathes
+      .to('#tp-car', { scale: 1.06, duration: 0.07, ease: 'power1.out' }, 0.84)
+      .to('#tp-car', { scale: 1,    duration: 0.07, ease: 'power1.in'  }, 0.91);
+
+    /* ── SCENE 2: Road → Map ──────────────────────── */
+    // Car starts below screen
+    gsap.set('#tp-drive-car', { y: '60vh' });
+
+    const s2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#tp-s2',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.8,
+        pin: '#tp-s2-pin',
+        anticipatePin: 1,
+      }
+    });
+
+    s2
+      // Car drives up
+      .to('#tp-drive-car', { y: '-10vh', duration: 0.55, ease: 'none' }, 0)
+      // Road fades to map
+      .to('#tp-road', { opacity: 0, duration: 0.25 }, 0.32)
+      .to('#tp-map-layer', { opacity: 1, duration: 0.35 }, 0.36)
+      // Car settles at center
+      .to('#tp-drive-car', { y: '-5vh', duration: 0.2, ease: 'power2.out' }, 0.6);
+
+    /* ── SCENE 3: Pins + Cards ────────────────────── */
+    gsap.set('#tp-nav-car', { y: 0 });
+    gsap.set('#tp-pin4-label', { opacity: 0 });
+
+    const s3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#tp-s3',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.8,
+        pin: '#tp-s3-pin',
+        anticipatePin: 1,
+      }
+    });
+
+    s3
+      // Pins pop in
+      .to('#tp-pin1', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.04)
+      .to('#tp-pin2', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.10)
+      .to('#tp-pin3', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.16)
+      .to('#tp-pin5', { opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'back.out(2)' }, 0.22)
+      // Active pin pops bigger
+      .to('#tp-pin4', { opacity: 1, scale: 1.3, duration: 0.1,  ease: 'back.out(3)' }, 0.30)
+      .to('#tp-pin4-label', { opacity: 1, duration: 0.08 }, 0.38)
+      // Cards slide in
+      .to('#tp-c1', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.36)
+      .to('#tp-c2', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.44)
+      .to('#tp-c3', { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' }, 0.52)
+      // Car steers toward pin
+      .to('#tp-nav-car', { x: '24vw', y: '-18vh', rotation: -22, duration: 0.3, ease: 'power2.inOut' }, 0.58);
+
+    // Set card initial x offsets
+    gsap.set(['#tp-c1','#tp-c2','#tp-c3'], { x: 40 });
+    // Set pin initial transform
+    gsap.set(['#tp-pin1','#tp-pin2','#tp-pin3','#tp-pin4','#tp-pin5'], { scale: 0, y: 14 });
+
+    /* ── SCENE 4: Park ────────────────────────────── */
+    // Park car starts above slot
+    gsap.set('#tp-park-car', { y: '-240px' });
+
+    const s4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#tp-s4',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.8,
+        pin: '#tp-s4-pin',
+        anticipatePin: 1,
+      }
+    });
+
+    s4
+      // Draw parking lines
+      .to('#tp-sll', { opacity: 1, scaleY: 1, duration: 0.12, ease: 'power2.out' }, 0.04)
+      .to('#tp-srl', { opacity: 1, scaleY: 1, duration: 0.12, ease: 'power2.out' }, 0.08)
+      .to('#tp-stl', { opacity: 1, scaleX: 1, duration: 0.1,  ease: 'power2.out' }, 0.16)
+      .to('#tp-sp',  { opacity: 1, duration: 0.1 }, 0.22)
+      // Slot glow
+      .to('#tp-slot-glow', { opacity: 1, duration: 0.15 }, 0.20)
+      // Car reverses in
+      .to('#tp-park-car', { y: '0px', duration: 0.38, ease: 'power2.inOut' }, 0.28)
+      // Confirmation
+      .to('#tp-confirm',  { opacity: 1, duration: 0.08 }, 0.70)
+      .to('#tp-check',    { scale: 1, duration: 0.12, ease: 'back.out(2)' }, 0.72)
+      // Pulse rings
+      .to('#tp-ring1', { scale: 2.2, opacity: 0, duration: 0.2, ease: 'power2.out' }, 0.76)
+      .to('#tp-ring2', { scale: 2.8, opacity: 0, duration: 0.2, ease: 'power2.out' }, 0.82);
+
+    // Init pulse rings
+    gsap.set(['#tp-ring1','#tp-ring2'], { opacity: 0.6, scale: 1 });
+  </script>
+</body>
+</html>
