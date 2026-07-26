@@ -895,6 +895,12 @@ ul   { list-style: none; }
   flex-wrap: wrap;
 }
 
+.footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .footer-copy {
   color: var(--text-3);
   font-size: 0.75rem;
