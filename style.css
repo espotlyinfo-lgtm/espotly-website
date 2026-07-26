@@ -837,7 +837,6 @@ ul   { list-style: none; }
   flex-direction: column;
   gap: 1.25rem;
   align-items: flex-end;
-  text-align: right;
 }
 
 .footer-social {
@@ -875,7 +874,7 @@ ul   { list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 0.08rem;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .footer-email-label {
