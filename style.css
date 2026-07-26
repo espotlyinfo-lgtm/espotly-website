@@ -806,7 +806,7 @@ ul   { list-style: none; }
 .footer-location a:hover { color: var(--teal); }
 
 .footer-links {
-  padding-left: 2rem;
+  padding-left: 6rem;
 }
 
 .footer-col-title {
