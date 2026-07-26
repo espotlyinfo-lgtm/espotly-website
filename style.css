@@ -805,6 +805,10 @@ ul   { list-style: none; }
 
 .footer-location a:hover { color: var(--teal); }
 
+.footer-links {
+  padding-left: 4rem;
+}
+
 .footer-col-title {
   color: var(--text-2);
   font-size: 0.72rem;
@@ -832,6 +836,8 @@ ul   { list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  align-items: flex-end;
+  text-align: right;
 }
 
 .footer-social {
@@ -869,6 +875,7 @@ ul   { list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 0.08rem;
+  align-items: flex-end;
 }
 
 .footer-email-label {
