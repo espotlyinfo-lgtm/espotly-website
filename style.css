@@ -780,13 +780,6 @@ ul   { list-style: none; }
   gap: 0.5rem;
 }
 
-.footer-logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-  animation: spin 3s linear infinite;
-}
-
 .footer-tagline {
   color: var(--teal);
   font-size: 0.82rem;
@@ -800,15 +793,10 @@ ul   { list-style: none; }
 }
 
 .footer-location {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.4rem;
   color: var(--text-3);
   font-size: 0.78rem;
   line-height: 1.6;
 }
-
-.footer-location svg { flex-shrink: 0; margin-top: 0.15em; }
 
 .footer-location a {
   color: var(--text-3);
