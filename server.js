@@ -43,9 +43,10 @@ function serveStatic(req, res, filePath) {
 
     const total = stat.size;
     const range = req.headers['range'];
+    const isVideo = ext === '.mp4';
 
-    if (range) {
-      // Parse "bytes=start-end"
+    if (range && isVideo) {
+      // Parse "bytes=start-end" — only for video files
       const match = range.match(/bytes=(\d*)-(\d*)/);
       const start = match[1] ? parseInt(match[1], 10) : 0;
       const end   = match[2] ? parseInt(match[2], 10) : total - 1;
@@ -67,7 +68,7 @@ function serveStatic(req, res, filePath) {
     } else {
       res.writeHead(200, {
         'Content-Type':   mime,
-        'Accept-Ranges':  'bytes',
+        'Accept-Ranges':  isVideo ? 'bytes' : 'none',
         'Content-Length': total,
       });
       fs.createReadStream(filePath).pipe(res);
