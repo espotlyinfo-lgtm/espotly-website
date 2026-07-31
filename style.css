@@ -1045,6 +1045,8 @@ ul   { list-style: none; }
   }
 
   .footer-cols { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-links { padding-left: 0; }
+  .footer-contact { align-items: flex-start; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }
 
