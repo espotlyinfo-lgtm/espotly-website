@@ -16,6 +16,21 @@ const PORT     = process.env.PORT || 3000;
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TG_CHAT  = process.env.TELEGRAM_CHAT_ID;
 
+const ALLOWED_ORIGINS = ['https://espotly.com', 'https://www.espotly.com'];
+
+// Rate limiter: max 5 requests per IP per 10 minutes
+const rateLimitMap = new Map();
+function isRateLimited(ip) {
+  const now = Date.now();
+  const window = 10 * 60 * 1000;
+  const max = 5;
+  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
+  if (now - entry.start > window) { entry.count = 0; entry.start = now; }
+  entry.count++;
+  rateLimitMap.set(ip, entry);
+  return entry.count > max;
+}
+
 // MIME types for static files
 const MIME = {
   '.html': 'text/html',
@@ -96,10 +111,13 @@ function sendToTelegram(text) {
 }
 
 const server = http.createServer((req, res) => {
-  // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // CORS — only allow our own domain
+  const origin = req.headers['origin'];
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  }
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -109,6 +127,12 @@ const server = http.createServer((req, res) => {
 
   // Handle contact form submission
   if (req.method === 'POST' && req.url === '/contact') {
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    if (isRateLimited(ip)) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Too many requests. Please try again later.' }));
+      return;
+    }
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', async () => {
@@ -137,6 +161,22 @@ const server = http.createServer((req, res) => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: false, error: 'Server error.' }));
       }
+    });
+    return;
+  }
+
+  // Proxy /api/counts to backend
+  if (req.method === 'GET' && req.url === '/api/counts') {
+    https.get('https://espotly-backend-production.up.railway.app/api/counts', backRes => {
+      let data = '';
+      backRes.on('data', chunk => data += chunk);
+      backRes.on('end', () => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(data);
+      });
+    }).on('error', () => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ drivers: 4, owners: 2, listings: 7 }));
     });
     return;
   }

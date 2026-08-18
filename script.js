@@ -28,7 +28,7 @@
 
   // Trigger animation when the section scrolls into view
   let fetchedData = null;
-  fetch('https://espotly-backend-production.up.railway.app/api/counts')
+  fetch('/api/counts')
     .then(r => r.json())
     .then(data => { fetchedData = data; })
     .catch(() => { fetchedData = FALLBACK; });
